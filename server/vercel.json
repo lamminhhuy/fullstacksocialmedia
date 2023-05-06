@@ -1,3 +1,5 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+    "scripts": {
+      "vercel-build": "node ./build.js"
+    }
   }

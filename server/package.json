@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "vercel-build": "node ./build.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -27,7 +28,6 @@
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
-    "@vercel/node": "^2.14.1",
     "nodemon": "^2.0.20"
   }
 }

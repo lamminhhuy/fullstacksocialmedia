@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const BookshelfCtrl =  require('../controllers/BookshelfCtrl')
+const BookshelfCtrl =  require('../controllers/bookshelfCtrl')
 const {auth} = require('../middleware/auth')
 const Bookshelf = require('../models/Bookshelf_Books')
 

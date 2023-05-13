@@ -7,6 +7,8 @@ const axios = require('axios')
 const SocketServer = require('./socketServer');
 const {PDFDocument} = require('pdf-lib')
 const path = require('path')
+
+const { ExpressPeerServer } = require('peer')
 const app = express()
 app.use(express.json())
 app.use(cors({
@@ -30,6 +32,7 @@ io.on('connection', socket => {
     console.log('A user connected');
     SocketServer(socket)
 })
+ExpressPeerServer(http, { path: '/' })
 
 
 // Routes

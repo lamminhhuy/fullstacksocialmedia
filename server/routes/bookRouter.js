@@ -39,7 +39,7 @@ router.get('/books/:category', async (req, res) => {
     try {
       const existingSearchHistory = await SearchHistory.findOneAndUpdate(
         { userId },
-        { query:searchTerm },
+        { query:query + " "+searchTerm },
         { upsert: true }
       );
       res.status(200).json(existingSearchHistory);

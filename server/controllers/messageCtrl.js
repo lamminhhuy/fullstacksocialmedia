@@ -1,5 +1,6 @@
 const Conversations = require('../models/conversationModel')
-const Messages = require('../models/messageModel')
+const Messages = require('../models/messageModel');
+const  addbook  = require('./book');
 
 class APIfeatures {
     constructor(query, queryString){
@@ -19,10 +20,15 @@ class APIfeatures {
 const messageCtrl = {
     createMessage: async (req, res) => {
         try {
-            const { sender, recipient, text, media, call } = req.body
-
+            const { sender, recipient, text, media, call,book } = req.body
+           
             if(!recipient || (!text.trim() && media.length === 0 && !call)) return;
-
+           let existingBook; 
+   if (book)
+   {
+    console.log(book)
+  existingBook =  addbook(book)
+   }
             const newConversation = await Conversations.findOneAndUpdate({
                 $or: [
                     {recipients: [sender, recipient]},
@@ -32,15 +38,13 @@ const messageCtrl = {
                 recipients: [sender, recipient],
                 text, media, call
             }, { new: true, upsert: true })
-
             const newMessage = new Messages({
                 conversation: newConversation._id,
                 sender, call,
-                recipient, text, media
+                recipient, text, media,
+                book:  existingBook._id, 
             })
-
             await newMessage.save()
-
             res.json({msg: 'Create Success!'})
 
         } catch (err) {

@@ -20,20 +20,6 @@ app.get('/',(req,res)=> {
 })
 
 //Socket
-const http = require('http').createServer(app)
-const io = require('socket.io')(http, {
-    cors: {
-      origin: 'http://localhost:3000',
-      methods: ['GET', 'POST'],
-    },
-  });
-
-io.on('connection', socket => {
-    console.log('A user connected');
-    SocketServer(socket)
-})
-ExpressPeerServer(http, { path: '/' })
-
 
 // Routes
 app.use('/api', require('./routes/authRouter'))

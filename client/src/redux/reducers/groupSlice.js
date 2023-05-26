@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getDataAPI, postDataAPI } from '../../utils/fetchData';
 import axios from 'axios';
+import { URL } from '../../utils/Url';
 
 const initialState = {
   groups: [],
@@ -21,7 +22,7 @@ export const fetchDiscussions = createAsyncThunk(
   'group/fetchDiscussions',
   async (groupId, { getState }) => {
     const { auth } = getState();
-    const response = await axios.get(`/api/groups/${groupId}/discussions`, {
+    const response = await axios.get(`${URL}/api/discussions`, {
       headers: {
         Authorization: auth.token
       }
@@ -34,7 +35,7 @@ export const addDiscussion = createAsyncThunk(
   async ({ groupId, title }, { getState }) => {
     try {
       const { auth } = getState();
-      const response = await postDataAPI('group/discussions', {
+      const response = await postDataAPI(`${URL}/api/group/discussions`, {
         groupId,
         title
       },auth.token);
@@ -47,7 +48,7 @@ export const addDiscussion = createAsyncThunk(
 
 
 export const fetchGroup = createAsyncThunk('group/fetchGroup', async (groupId) => {
-  const response = await axios.get(`/api/groups/group/${groupId}`);
+  const response = await axios.get(`${URL}/api/groups/group/${groupId}`);
   return response.data;
 });
 export const fetchPosts = createAsyncThunk('group/fetchPosts', async (groupId,auth) => {
@@ -56,7 +57,7 @@ export const fetchPosts = createAsyncThunk('group/fetchPosts', async (groupId,au
   return response.data;
 });
 export const searchGroups = createAsyncThunk('groups/searchGroups', async (query) => {
-  const response = await axios.get(`/api/groups/search?query=${query}`);
+  const response = await axios.get(`${URL}/api/groups/search?query=${query}`);
   return response.data;
 });
 export const joinGroup = createAsyncThunk(

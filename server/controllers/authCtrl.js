@@ -31,6 +31,7 @@ const authCtrl = {
                   
             const access_token = createAccessToken({id: newUser._id})
             const refresh_token = createRefreshToken({id: newUser._id})
+            console.log(refresh_token)
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
                 path: '/api/refresh_token',
@@ -71,11 +72,12 @@ const authCtrl = {
             }
             const access_token = createAccessToken({id: user._id})
             const refresh_token = createRefreshToken({id: user._id})
+        
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path: '/api/refresh_token',
+                path: 'http://localhost:3000/api/refresh_token',
                 maxAge: 30*24*60*60*1000 // 30days
-            })
+            })  
 
             res.json({
                 msg: 'Login Success!',

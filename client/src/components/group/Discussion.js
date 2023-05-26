@@ -12,7 +12,7 @@ const { Title } = Typography;
 
 
 
-const socket = io('http://localhost:5000');
+const socket = io('https://readchoiceapis2.onrender.com/');
 function Discussion() {
   const dispatch = useDispatch();
   const {groupId} = useParams()

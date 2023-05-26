@@ -49,7 +49,7 @@ const dispatch = useDispatch()
 useEffect(() => {
   dispatch(refreshToken())
 
-  const socket = io('http://localhost:5000');
+  const socket = io('https://readchoiceapis2.onrender.com/');
   dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
   return () => socket.close()
 },[dispatch])

@@ -11,18 +11,24 @@ const dispatch = useDispatch();
     const value = event.target.value;
     setFilter(event.target.value);
     if (value=="all")
+    {   
+       dispatch(searchBooks({keyword}))
+    }else if (value == "readable")
     {
-dispatch(searchBooks(keyword))
+      dispatch(filterReadableBooks(value));
+      
+    }else
+    {
+      dispatch(searchBooks({keyword,value}))
     }
-    dispatch(filterReadableBooks(value));
-  
   };
   return (
     <div>
       <Radio.Group onChange={handleFilterChange} value={filter}>
         <Radio value={"all"}>All</Radio>
         <Radio value={"readable"}>Readable</Radio>
-        <Radio value={"Best selling"}>Best Selling</Radio>
+        <Radio value={"newest"}>Newest</Radio>
+        <Radio value={"relevance"}>Most popular</Radio>
       </Radio.Group>
     </div>
   );

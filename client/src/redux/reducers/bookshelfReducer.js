@@ -1,4 +1,9 @@
-import { updateDrawers } from "../actions/bookshelfAction";
+import { updateDrawers ,updatedeleteDrawer} from "../actions/bookshelfAction";
+import {
+  UPDATE_DRAWER_REQUEST,
+  UPDATE_DRAWER_SUCCESS,
+  UPDATE_DRAWER_FAILURE
+} from '../actions/bookshelfAction';
 
 // Define initial state
 const initialState = {
@@ -21,16 +26,55 @@ const bookshelfReducer = (state = initialState, action) => {
       return { ...state, loading: true };
       case 'ADD_DRAWER':
   return updateDrawers(state, action.payload);
-
+   case 'DELETE_DRAWER':
+    return updatedeleteDrawer(state, action.payload);
     case 'ADD_BOOK_TO_BOOKSHELF_SUCCESS':
       return {
         ...state,
-        bookshelves: action.payload,
+        drawers: action.payload,
         loading: false,
         error:[]
       };
     case 'ADD_BOOK_TO_BOOKSHELF_FAILURE':
       return { ...state, error: action.payload, loading: false };
+          case UPDATE_DRAWER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case UPDATE_DRAWER_SUCCESS:
+      return {
+        ...state,
+        drawer: action.payload,
+        loading: false,
+        error: null
+      };
+    case UPDATE_DRAWER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+      case UPDATE_DRAWER_REQUEST:
+        return {
+          ...state,
+          loading: true,
+          error: null
+        };
+      case UPDATE_DRAWER_SUCCESS:
+        return {
+          ...state,
+          drawer: action.payload,
+          loading: false,
+          error: null
+        };
+      case UPDATE_DRAWER_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload
+        };
     default:
       return state;
   }

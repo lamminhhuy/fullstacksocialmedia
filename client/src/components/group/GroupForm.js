@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 import { postDataAPI } from '../../utils/fetchData';
+import { useNavigate } from 'react-router-dom';
 
 function GroupForm() {
 const [groupName, setGroupName] = useState('');
@@ -10,7 +11,7 @@ const [groupDescription, setGroupDescription] = useState('');
 const [groupRules, setGroupRules] = useState('');
 const [groupType, setGroupType] = useState('');
 const {user} = useSelector(state => state.auth);
-
+const history = useNavigate()
 const dispatch= useDispatch()
 const handleSubmit = async (event) => {
 event.preventDefault(); // Ngăn chặn trình duyệt submit form
@@ -22,6 +23,7 @@ rules: groupRules,
 moderatorId:user._id
 });
 dispatch({type: GLOBALTYPES.ALERT, payload: {success:  "Created!"}})
+history('/search/groups');
 } catch (error) {
 dispatch({type: GLOBALTYPES.ALERT, payload: {error:  error.response.data.message}})
 console.error(error);
@@ -72,7 +74,7 @@ onChange={(event) => setGroupRules(event.target.value)}
 </div>
 <div className="flex items-center justify-between">
 <button
-         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+         className="bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
          type="submit"
          onClick={handleSubmit}
        >

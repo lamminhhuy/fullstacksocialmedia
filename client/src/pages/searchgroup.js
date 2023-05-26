@@ -15,7 +15,7 @@ dispatch(fetchGroupsAsync())
  },[])
   return (
     <div>
-      <Link to={`/group/new`}><button className='btn btn-primary'>Create Group</button></Link>
+      <Link to={`/group/new`}><button className='btn bg-purple hover:bg-faint-purple text-white text-sm font-semibold '>Create Group</button></Link>
         <SearchBox/>
      <GroupsList groups={groups}/>
     </div>

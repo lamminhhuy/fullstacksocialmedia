@@ -33,13 +33,18 @@ export const recommendBooks = createAsyncThunk(
   async ({querybook, userId}) => {
     
     try {
-    console.log(querybook)
       const response1 = await postDataAPI('books/search-history',{userId:userId,        searchTerm: querybook, }
       );
+
 
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${querybook}&maxResults=1&langRestrict=en+vi`
       );
+      if (response.status >= 200 && response.status < 300)
+      {
+           const response1 = await postDataAPI('books/search-history',{userId:userId,        searchTerm: querybook, }
+      );
+      }
       const book = response.data.items[0].volumeInfo;
       const author = book.authors ? book.authors[0] : "";
       const genre = book.categories ? book.categories[0] : "";
@@ -110,11 +115,21 @@ export const suggestbook = createAsyncThunk("books/suggestbook", async (query) =
   }
 });
 
-export const searchBooks = createAsyncThunk("books/searchBooks", async (query) => {
+export const searchBooks = createAsyncThunk("books/searchBooks", async ({keyword,value}) => {
   try {
-    const response = await axios.get(
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=30&langRestrict=en+vi`
+    let response 
+    if (value)
+    {
+     response= await axios.get(
+      `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=30&langRestrict=en+vi&orderBy=${value}`
     );
+    } else 
+    {
+       response = await axios.get(
+        `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=30&langRestrict=en+vi`
+      );
+    }
+  console.log(response.data)
     const books = response.data.items.map((book) => {
       return {
         bookId: book.id,

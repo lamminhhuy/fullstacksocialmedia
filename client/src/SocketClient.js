@@ -22,6 +22,7 @@ const spawnNotification = (body, icon, url, title) => {
 
 const SocketClient = () => {
     const { auth, socket, notify, online, call } = useSelector(state => state)
+    const group = useSelector(state => state.group.group)
     const dispatch = useDispatch()
 
     const audioRef = useRef()
@@ -132,11 +133,15 @@ const SocketClient = () => {
 
     // Check User Online / Offline
     useEffect(() => {
-        socket.emit('checkUserOnline', auth.user)
+        socket.emit('checkUserOnline', auth.user.following)
     },[socket, auth.user])
+    useEffect(() => {
+        socket.emit('checkUserOnline', group ? group.members : auth.user.following)
+    },[socket,group])
 
     useEffect(() => {
         socket.on('checkUserOnlineToMe', data =>{
+       
             data.forEach(item => {
                 if(!online.includes(item.id)){
                     dispatch({type: GLOBALTYPES.ONLINE, payload: item.id})
@@ -153,9 +158,9 @@ const SocketClient = () => {
                 dispatch({type: GLOBALTYPES.ONLINE, payload: id})
             }
         })
-
         return () => socket.off('checkUserOnlineToClient')
     },[socket, dispatch, online])
+    
 
     // Check User Offline
     useEffect(() => {

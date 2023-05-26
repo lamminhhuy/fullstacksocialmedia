@@ -30,6 +30,7 @@ import PostForm from './components/group/PostForm';
 import Peer from 'peerjs'
 import AdminPanel from './pages/adminpanel';
 import { POST_TYPES, getbookshelf } from './redux/actions/bookshelfAction';
+import Discussion from './components/group/Discussion';
 
 function App() {
   return (
@@ -104,6 +105,8 @@ useEffect(() => {
      <Route exact path="/group/:id" element={auth.token ? <Group/>:<Login/>}/>
      <Route exact path="/search/groups" element={auth.token ? <Searchgroup/>:<Login/>}/>
      <Route exact path="/group/new" element={auth.token ? <GroupForm/>:<Login/>}/>
+      <Route exact path="/group/new" element={auth.token ? <GroupForm/>:<Login/>}/>
+      <Route exact path="/group/:groupId/discussion/:id" element={auth.token ? <Discussion/>:<Login/>}/>
      
      <Route exact path="/admindashboard" element={auth.token ? <AdminPanel/>:<Login/>}/>
      </Routes>

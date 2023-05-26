@@ -34,7 +34,6 @@ const RightSideBar = () => {
             <UserCard user={auth.user} />    
             <div className="d-flex justify-content-between align-items-center my-2">
                 <h5 className="text-danger">Recommeded books for you</h5>
-         
             </div>       
               <Carousel autoplay prevArrow={prevArrow} nextArrow={nextArrow} >
             {recommendedBooks && recommendedBooks.map((book) => (

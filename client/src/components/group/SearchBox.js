@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { searchGroups } from "../../redux/reducers/groupSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SearchBox = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = React.useState("");
-
+const dispatch = useDispatch(state => state)
+const {error, status} = useSelector(state => state.group)
   const handleSearch = () => {
-    onSearch(searchTerm);
+    dispatch(searchGroups(searchTerm));
   };
 
   return (
@@ -19,13 +22,13 @@ const SearchBox = ({ onSearch }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button
-            className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
-            type="button"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
+        <button
+  className="bg-purple hover:bg-faint-purple text-white text-sm font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
+  type="button"
+  onClick={handleSearch}
+>
+  Search
+</button>
         </div>
       </div>
     </div>

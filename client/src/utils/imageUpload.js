@@ -12,11 +12,17 @@ export const checkImage = (file) => {
 }
 
 
-export const imageUpload = async (image) => {
+export const imageUpload = async (images) => {
     let imgArr = [];
-  
+    for(const item of images){
         const formData = new FormData()
-            formData.append("file", image)   
+
+        if(item.camera){
+            formData.append("file", item.camera)
+        }else{
+            formData.append("file", item)
+        }
+        
         formData.append("upload_preset", "ml_default")
         formData.append("cloud_name", "dpzpv7tjr")
 
@@ -27,6 +33,6 @@ export const imageUpload = async (image) => {
         
         const data = await res.json()
         imgArr.push({public_id: data.public_id, url: data.secure_url})
-    
+    }
     return imgArr;
 }

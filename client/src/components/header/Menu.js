@@ -68,11 +68,12 @@ const Menu = () => {
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <Link className="dropdown-item" to={`/profile/${auth.user&& auth.user._id}`}>Profile</Link>
 
-                  
+                 {   auth.user&& auth.user.isAdmin == "true" && (
                     <Link className="dropdown-item" to="/admindashboard"
                 >
                         Admin panel
-                    </Link>
+                    </Link>)
+}
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="/"
                     onClick={() => dispatch(logout())}>

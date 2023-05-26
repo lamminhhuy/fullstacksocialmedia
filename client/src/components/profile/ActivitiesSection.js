@@ -19,6 +19,7 @@ const ActivitiesSection = ({user,posts}) => {
     </div>
   ))
 }
+
 {posts && posts.length ==0  &&( <span>{user && user.fullname} doesn't have any post yet </span>)}
       </div>
 </div>

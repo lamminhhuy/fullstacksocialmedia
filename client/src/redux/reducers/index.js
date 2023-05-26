@@ -21,6 +21,8 @@ import reviewSlice from './reviewSlice'
 import booksSlice from './booksSlice'
 import ratingSlice from './ratingSlice'
 import groupSlice from'./groupSlice'
+
+import discussionSlice from'./groupSlice'
 export default combineReducers({
     auth,
     alert,
@@ -42,5 +44,6 @@ export default combineReducers({
     bookshelf,
     review :reviewSlice,
     group: groupSlice,
+    discussions: discussionSlice,
 rating : ratingSlice,
 })

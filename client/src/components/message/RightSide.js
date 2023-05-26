@@ -43,7 +43,7 @@ const RightSide = () => {
         if(id && message.users.length > 0){
             setTimeout(() => {
                 refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
-            },50)
+            },50) 
 
             const newUser = message.users.find(user => user._id === id)
             if(newUser) setUser(newUser)
@@ -149,10 +149,7 @@ const RightSide = () => {
         <>
             <div className="message_header" style={{cursor: 'pointer'}} >
                 {
-                   
-                    <UserCard user={user}>
-                    
-                    </UserCard>
+              
                 }
             </div>
 
@@ -161,7 +158,7 @@ const RightSide = () => {
                 <div className="chat_display" ref={refDisplay}>
                     <button style={{marginTop: '-25px', opacity: 0}} ref={pageEnd}>
                         Load more
-                    </button>
+         +           </button>
 
                     {
                         data.map((msg, index) => (
@@ -225,7 +222,6 @@ const RightSide = () => {
                     <input type="file" name="file" id="file"
                     multiple accept="image/*,video/*" onChange={handleChangeMedia} />
                 </div>
-
                 <button type="submit" className="material-icons" 
                 disabled={(text || media.length > 0) ? false : true}>
                     near_me

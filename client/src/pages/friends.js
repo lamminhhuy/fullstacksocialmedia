@@ -12,7 +12,7 @@ export const Friends = () => {
   const [search, setSearch] = useState('')
   const [users, setUsers] = useState([])
 
-  const { auth } = useSelector(state => state)
+  const { auth ,message,online} = useSelector(state => state)
   const dispatch = useDispatch()
   const [load, setLoad] = useState(false)
 
@@ -82,7 +82,7 @@ export const Friends = () => {
           )}
         </form>
         <div className="font-bold my-4">Following</div>
-      { auth && auth.user && auth.user.following.map((user) => (
+      { auth && auth.user && auth.user.following.filter(user => user.fullname !== 'ReadChoice').map((user) => (
           <>
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <li className="bg-white rounded-md shadow-md">
@@ -95,33 +95,22 @@ export const Friends = () => {
               <div className="font-semibold text-lg">{user.fullname}</div>
             </div>
             </Link>  
-            <div className="text-gray-500 px-4 pb-4">Online</div>
-          </li>
+          
+         
+          {online.includes(user._id) ? (
+           <div className="text-gray-500 px-4 pb-4 flex flex-row justify-between"><h5>Online</h5>  <i className="fas fa-circle text-success" /></div>
+  
+) : (
+ <div className="text-gray-500 px-4 pb-4 flex flex-row justify-between">Offline  <i className="fas fa-circle " /></div>
+   
+)}
+ </li>
+                                        
           {/* Repeat the above list item for each friend */}
         </ul>
 </>
               )      )}
-                <div className="font-bold my-4">Followers</div>
-      { auth && auth.user && auth.user.followers.map((user) => (
-          <>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <li className="bg-white rounded-md shadow-md">
-         <Link to={`/profile/${user._id}`}> <div className="flex items-center mb-2 p-4">
-              <img
-                src={`${user.avatar}`}
-                alt="Friend avatar"
-                className="w-10 h-10 rounded-full mr-2 object-contain"
-              />
-              <div className="font-semibold text-lg">{user.fullname}</div>
-            </div>
-            </Link>  
-            <div className="text-gray-500 px-4 pb-4">Online</div>
-          </li>
-          {/* Repeat the above list item for each friend */}
-        </ul>
-</>
-              )      )}
-        </div>
+                   </div>
         </div></div>)
 }
 

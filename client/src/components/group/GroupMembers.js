@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-function GroupMembers({members}) {
+function GroupMembers({members,online}) {
 useEffect (()=> {
     console.log("members have changed:", members);
 },[members])
@@ -11,7 +11,7 @@ useEffect (()=> {
       <h2>Members</h2>
       
   <ul class=" ">
-  {members && members.map((member) => (
+  {online && members && members.map((member) => (
        
       <Link to={`/profile/${member._id}`}>
     <li class="bg-white p-2 rounded-md shadow-md mt-2 mb-2" key={member._id}>
@@ -19,7 +19,13 @@ useEffect (()=> {
         <img src={`${member.avatar}`} alt="Friend avatar" class="w-10 h-10 rounded-full mr-2" />
         <div class="font-semibold text-lg">{member.fullname}</div>
       </div>
-      <div class="text-gray-500">Online</div>
+      {online.includes(member._id) ? (
+           <div className="text-gray-500  flex flex-row justify-between"><h5>Online</h5>  <i className="fas fa-circle text-success" /></div>
+  
+) : (
+ <div className="text-gray-500  flex flex-row justify-between">Offline  <i className="fas fa-circle " /></div>
+   
+)}
       </li>
       </Link>
       ))}

@@ -11,6 +11,7 @@ import { postDataAPI } from '../../utils/fetchData';
 import BookFilter from '../Bookfilter';
 import Rating from './rating';
 import { FavoriteButton } from './favoriteButton';
+import ShareBookModal from './ShareBookModal';
 const  Booklist =({query, books, selectedBook, isLoading, error }) => {   
   const dispatch = useDispatch();
   const { drawers,loading} = useSelector (state => state.bookshelf)
@@ -38,6 +39,7 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
       const handlePaginationChange = (page) => {
         setCurrentPage(page);
       };
+      
   return (
     <div>  {books && currentItems.map((book)=> (
         (
@@ -98,7 +100,8 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
      
            </div>
          
-           <Rating isLoading={isLoading} averageRating={book.averageRating} bookId={book.bookId}/>
+      <div className='flex flex-row justify-between'>     <Rating isLoading={isLoading} averageRating={book.averageRating} bookId={book.bookId}/>
+       <ShareBookModal book={book}/></div>
            </>
            
            )) )}

@@ -5,6 +5,7 @@ import FollowBtn from '../FollowBtn'
 import Followers from './Followers'
 import Following from './Following'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+import { Link } from 'react-router-dom'
 
 const Info = ({id, auth, profile, dispatch}) => {
     const [userData, setUserData] = useState([])
@@ -53,8 +54,9 @@ const Info = ({id, auth, profile, dispatch}) => {
                                     : <FollowBtn user={user} />
                                 }
                                
-                                
-                            </div>
+        
+ 
+                            </div>                             
 
                             <div className="follow_btn">
                                 <span className="mr-4" onClick={() => setShowFollowers(true)}>
@@ -63,11 +65,17 @@ const Info = ({id, auth, profile, dispatch}) => {
                                 <span className="ml-4" onClick={() => setShowFollowing(true)}>
                                     {user.following.length} Following
                                 </span>
-                            </div>
+                    </div>
 
                             <h6>{user.fullname} <span className="text-danger">{user.mobile}</span></h6>
                             <p className="m-0">{user.address}</p>
                             <h6 className="m-0">{user.email}</h6>
+                          {  user._id !== auth.user._id && (
+                                       <div className='flex justify-end'><Link to={`/message/${user._id}`}>   <button class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
+  <i class="fa fa-comments mr-2"></i>
+  Message
+</button></Link> </div> )} 
+            
                             <a href={user.website} target="_blank" rel="noreferrer">
                                 {user.website}
                             </a>

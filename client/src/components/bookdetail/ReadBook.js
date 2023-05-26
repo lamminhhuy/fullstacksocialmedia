@@ -87,6 +87,7 @@ const onloadHanlder = () => {
       <Button className="h-10 w-20 mr-40" icon={<RightOutlined  style={{ color: "white  " }}  onClick={handleNextPage}/>} style={{backgroundColor:"#392415"}} />
     
       </div>
+      
       {loading && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Spin />

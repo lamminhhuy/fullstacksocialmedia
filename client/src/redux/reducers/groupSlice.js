@@ -6,10 +6,10 @@ const initialState = {
   groups: [],
   group: null,
   posts: [],
+  discussions:[],
   status: 'idle',
   error: null
 };
-
 export const fetchGroupsAsync = createAsyncThunk(
   'groups/fetchGroups',
   async () => {
@@ -17,13 +17,41 @@ export const fetchGroupsAsync = createAsyncThunk(
     return response.data;
   }
 );
-export const fetchGroup = createAsyncThunk('group/fetchGroup', async (groupId) => {
+export const fetchDiscussions = createAsyncThunk(
+  'group/fetchDiscussions',
+  async (groupId, { getState }) => {
+    const { auth } = getState();
+    const response = await axios.get(`/api/groups/${groupId}/discussions`, {
+      headers: {
+        Authorization: auth.token
+      }
+    });
+    return response.data;
+  }
+);
+export const addDiscussion = createAsyncThunk(
+  'group/addDiscussion',
+  async ({ groupId, title }, { getState }) => {
+    try {
+      const { auth } = getState();
+      const response = await postDataAPI('group/discussions', {
+        groupId,
+        title
+      },auth.token);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  }
+);
 
-  const response = await axios.get(`/api/groups/${groupId}`);
+
+export const fetchGroup = createAsyncThunk('group/fetchGroup', async (groupId) => {
+  const response = await axios.get(`/api/groups/group/${groupId}`);
   return response.data;
 });
 export const fetchPosts = createAsyncThunk('group/fetchPosts', async (groupId,auth) => {
-  console.log(groupId)
+
   const response = await getDataAPI(`group/posts/`,auth.token);
   return response.data;
 });
@@ -47,10 +75,38 @@ export const postSlice = createSlice({
       ...state,
       posts:[...state.posts,action.payload]
       }
-   } },
-
+    },
+      discussionAdded: (state, action) => {
+        return {
+        ...state,
+        discussions:[...state.discussions,action.payload]
+        }
+    },
+  },
   extraReducers: (builder) => {
     builder
+    .addCase(addDiscussion.pending, (state) => {
+      state.status = 'loading';
+    })
+    .addCase(addDiscussion.fulfilled, (state, action) => {
+      state.loading = false;
+      state.status = "suceeded";
+      state.discussions = [...state.discussions, action.payload];
+    })
+    .addCase(fetchDiscussions.pending, (state) => {
+      state.loading = true;
+    })  .addCase(fetchDiscussions.fulfilled, (state, action) => {
+      state.loading = false;
+      state.status = "suceeded";
+      state.discussions = action.payload;
+    })  .addCase(fetchDiscussions.rejected, (state, action) => {
+      state.status = "failed";
+      state.error =  action.payload;
+    })
+    .addCase(addDiscussion.rejected, (state,action) => {
+      state.status = 'failed';
+        state.error = action.error.message;
+    })
       .addCase(fetchGroupsAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -104,5 +160,8 @@ export const postSlice = createSlice({
 export const { postAdded } = postSlice.actions;
 
 export const selectAllPosts = (state) => state.posts.posts;
+
+export const selectAllDiscussions = (state) => state.posts.discussions;
+
 
 export default postSlice.reducer;

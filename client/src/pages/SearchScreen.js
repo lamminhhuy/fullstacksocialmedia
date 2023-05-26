@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 export const SearchScreen = () => {
   const { keyword } = useParams();
 useEffect(()=> {
-console.log(keyword)
 })
   return (
     <>

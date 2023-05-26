@@ -8,7 +8,12 @@ export const POST_TYPES = {
   GET_POST: 'GET_POST',
   DELETE_POST: 'DELETE_POST',
   FILTER_POST: 'FILTER_POST'
+  
 }
+export const UPDATE_DRAWER_REQUEST = 'UPDATE_DRAWER_REQUEST';
+export const UPDATE_DRAWER_SUCCESS = 'UPDATE_DRAWER_SUCCESS';
+export const UPDATE_DRAWER_FAILURE = 'UPDATE_DRAWER_FAILURE';
+
 export const addBookToShelf = ({name, user_id,book,auth}) =>async (dispatch) => {
     const data = {drawerName:name, userId:user_id,book} ;
   
@@ -68,4 +73,41 @@ export const getbookshelf = (userId,auth) =>async (dispatch) => {
     newState.drawers = newDrawers;
     return newState;
   }
-  
+  export const updatedeleteDrawer = (state, deletedDrawerId) => {
+    // Create a new copy of the state
+    const newState = { ...state };
+    // Create a new copy of the drawers array
+    const newDrawers = [...newState.drawers];
+    // Find the index of the deleted drawer
+    const deletedDrawerIndex = newDrawers.findIndex((drawer) => drawer.id === deletedDrawerId);
+    // If the deleted drawer is found, remove it from the array
+    if (deletedDrawerIndex !== -1) {
+      newDrawers.splice(deletedDrawerIndex, 1);
+    }
+    // Update the state with the updated drawers array
+    newState.drawers = newDrawers;
+    return newState;
+  };
+  // actions.js
+
+export const deleteDrawer = (userId, drawerId) => {
+  return async (dispatch) => {
+    try {
+      // Make the API request to delete the drawer
+      const response = await axios.delete(`/api/bookshelves/${userId}/drawers/${drawerId}`);
+
+      dispatch(deleteDrawerSuccess());
+    } catch (error) {
+      console.error(error);
+      dispatch(deleteDrawerFailure());
+    }
+  };
+};
+
+export const deleteDrawerSuccess = () => {
+  return { type: 'DELETE_DRAWER' };
+};
+
+export const deleteDrawerFailure = () => {
+  return { type: 'DELETE_DRAWER_FAILURE' };
+};

@@ -4,7 +4,7 @@ import { imageShow, videoShow } from '../../utils/mediaShow'
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteMessages } from '../../redux/actions/messageAction'
 import Times from './Times'
-
+import { Link } from 'react-router-dom'
 const MsgDisplay = ({user, msg, theme, data}) => {
     const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
@@ -25,11 +25,7 @@ const MsgDisplay = ({user, msg, theme, data}) => {
             </div>
 
             <div className="you_content">
-                { 
-                    user._id === auth.user._id && 
-                    <i className="fas fa-trash text-danger"
-                    onClick={handleDeleteMessages} />
-                }
+   
 
                 <div>
                     {
@@ -40,16 +36,37 @@ const MsgDisplay = ({user, msg, theme, data}) => {
                         </div>
                     }
                     {
-                        msg.media.map((item, index) => (
+                      msg.book &&  
+
+                 
+                      <div className='row' >
+
+                      <div className='col-4'>  
+                              { 
+                    user._id === auth.user._id && 
+                    <i className="fas fa-trash text-danger"
+                    onClick={handleDeleteMessages} />
+                }   <><Link to={`/book/show/${msg.book.googleBooksId}`}><img src={`${msg.book.cover_i ?msg.book.cover_i: msg.book.coverImage }`} className='object-content'/>    </Link> </> </div>
+                         
+                      <div className='col-8'> <h5>{msg.book.title}</h5>
+                      <h5>By {msg.book.author}</h5></div>  
+               
+                      </div>
+                  
+                    }
+                    
+                    {
+                       msg.media&&  msg.media.map((item, index) => (
                             <div key={index}>
                                 {
-                                    item.url.match(/video/i)
+                                   item.url&&  item.url.match(/video/i)
                                     ? videoShow(item.url, theme)
                                     : imageShow(item.url, theme)
                                 }
                             </div>
                         ))
                     }
+                    
                 </div>
             
                 {

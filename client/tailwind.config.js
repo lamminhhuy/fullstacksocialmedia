@@ -14,7 +14,9 @@ module.exports = {
           "#656060": '#656060',
           "#392415": '#392415',
           '#D0D0D0': "#baac9a",
-          '#f0f2f5':'#f0f2f5'
+          '#f0f2f5':'#f0f2f5',
+          'purple': '#616ba9',
+          'faint-purple': '#7F86B4'
         },
         borderRadius: {
           '4xl': '2rem',

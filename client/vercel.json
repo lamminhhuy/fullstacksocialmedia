@@ -1,8 +1,8 @@
 {
     "rewrites": [
       {
-        "source": "/api/(.*)",
-        "destination": "https://readchoiceapis2.onrender.com/"
+        "source": "/api/:path*",
+        "destination": "https://readchoiceapis2.onrender.com"
       }
     ]
   }

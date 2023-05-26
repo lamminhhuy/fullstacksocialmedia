@@ -9,7 +9,7 @@ export const getDataAPI = async (url, token) => {
 }
 
 export const postDataAPI = async (url, post, token) => {
-    const res = await axios.post(`${URL}/api/${url}`, post, {
+    const res = await axios.post(`https://readchoiceapis2.onrender.com/${url}`, post, {
         headers: { Authorization: token}
     })
     return res;

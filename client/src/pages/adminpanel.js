@@ -3,6 +3,7 @@ import { Layout, Menu, Modal } from 'antd';
 import { UserOutlined, FileOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Button, Form, Input } from 'antd';
+import { URL } from '../utils/Url';
 
 const { Sider, Content } = Layout;
 
@@ -48,7 +49,7 @@ const review = reviewId;
 const updatedUser = { ...users[i], status:value == "enable"?  "active": "disabled" };
     const updatedUsers = [...users.slice(0, i), updatedUser, ...users.slice(i + 1)];
 setUsers(updatedUsers)
-    axios.put(`/api/users/${userId}/${value}`)
+    axios.put(`${URL}/api/users/${userId}/${value}`)
       .then(response => {
     })
       .catch(error => {

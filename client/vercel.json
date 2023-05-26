@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "https://readchoiceapis2.onrender.com/"
+      }
+    ]
+  }
+  

@@ -73,7 +73,7 @@ export const addReview = ({ userId, bookId, reviewText }) => async dispatch => {
 
 export const likeReview = ({ userId, reviewId }) => async dispatch => {
   try {
-    const response = await axios.put(`/api/books/review/like/${userId}/${reviewId}`);
+    const response = await axios.put(`${URL}/api/books/review/like/${userId}/${reviewId}`);
     dispatch(reviewLiked(response.data));
   } catch (error) {
     console.error(error);

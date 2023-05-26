@@ -31,6 +31,7 @@ import Peer from 'peerjs'
 import AdminPanel from './pages/adminpanel';
 import { POST_TYPES, getbookshelf } from './redux/actions/bookshelfAction';
 import Discussion from './components/group/Discussion';
+import { URL } from './utils/Url';
 
 function App() {
   return (
@@ -49,7 +50,7 @@ const dispatch = useDispatch()
 useEffect(() => {
   dispatch(refreshToken())
 
-  const socket = io('https://readchoiceapis2.onrender.com/');
+  const socket = io(`${URL}`);
   dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
   return () => socket.close()
 },[dispatch])

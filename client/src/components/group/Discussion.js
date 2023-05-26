@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, selectMessages } from '../../redux/reducers/discussionSlice'
 import io from 'socket.io-client';
 import { Typography } from 'antd';
+import { URL } from '../../utils/Url';
 const { Title } = Typography;
 
 
-
-const socket = io('https://readchoiceapis2.onrender.com/');
+const socket = io(`${URL}`);
 function Discussion() {
   const dispatch = useDispatch();
   const {groupId} = useParams()

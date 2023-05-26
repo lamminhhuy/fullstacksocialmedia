@@ -1,5 +1,5 @@
 {
-  "proxy": "https://readchoiceapis2.onrender.com",
+  "proxy": "http://localhost:5000",
   "name": "book",
   "version": "0.1.0",
   "private": true,

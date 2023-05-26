@@ -22,7 +22,7 @@ export const fetchDiscussions = createAsyncThunk(
   'group/fetchDiscussions',
   async (groupId, { getState }) => {
     const { auth } = getState();
-    const response = await axios.get(`${URL}/api/discussions`, {
+    const response = await axios.get(`${URL}/api/groups/${groupId}/discussions`, {
       headers: {
         Authorization: auth.token
       }

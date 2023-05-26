@@ -9,7 +9,7 @@ export const getDataAPI = async (url, token) => {
 }
 
 export const postDataAPI = async (url, post, token) => {
-    const res = await axios.post(`https://readchoiceapis2.onrender.com/api//${url}`, post, {
+    const res = await axios.post(`${URL}/api/${url}`, post, {
         headers: { Authorization: token}
     })
     return res;
@@ -23,7 +23,7 @@ export const putDataAPI = async (url, post, token) => {
 }
 
 export const patchDataAPI = async (url, post, token) => {
-    const res = await axios.patch(`${URL}/api/${url}`, post, {
+    const res = await axios.patch(`${URL}/api${url}`, post, {
         headers: { Authorization: token}
     })
     return res;

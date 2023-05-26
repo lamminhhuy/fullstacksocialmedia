@@ -163,7 +163,7 @@ export const getBookDetails = createAsyncThunk(
   "books/getBookDetails",
   async (bookId) => {
     try {
-      const response = await axios.get(`/api/books/${bookId}`);
+      const response = await axios.get(`${URL}/api/books/${bookId}`);
       return response.data;
     } catch (error) {
       throw new Error("Failed to get book details.");

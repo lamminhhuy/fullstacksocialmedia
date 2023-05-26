@@ -35,7 +35,7 @@ export const addDiscussion = createAsyncThunk(
   async ({ groupId, title }, { getState }) => {
     try {
       const { auth } = getState();
-      const response = await postDataAPI(`${URL}/api/group/discussions`, {
+      const response = await postDataAPI(`group/discussions`, {
         groupId,
         title
       },auth.token);

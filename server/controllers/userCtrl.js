@@ -13,8 +13,19 @@ const userCtrl = {
     },
     getUser: async (req, res) => {
         try {
-            const user = await Users.findById(req.params.id).select('-password')
-            .populate("followers following", "-password")
+            const user = await Users.findById(req.params.id)
+            .select('-password')
+            .populate({
+              path: 'followers',
+              select: '-password',
+              match: { fullname: { $ne: 'ReadChoice' } }
+            })
+            .populate({
+              path: 'following',
+              select: '-password',
+              match: { fullname: { $ne: 'ReadChoice' } }
+            });
+          
             if(!user) return res.status(400).json({msg: "User does not exist."})
             
             res.json({user})

@@ -54,7 +54,12 @@ const authCtrl = {
             const { email, password } = req.body
 
             const user = await Users.findOne({email})
-            .populate("followers following", "avatar username fullname followers following")
+            .populate("followers", "avatar username fullname followers")       .populate({
+                path: 'following',
+                select: '-password',
+                match: { fullname: { $ne: 'ReadChoice' } }
+              });
+            
 
             if(!user) return res.status(400).json({msg: "This email does not exist."})
 

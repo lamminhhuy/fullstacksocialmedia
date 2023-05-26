@@ -7,14 +7,10 @@ const User = require('../models/userModel');
 const axios = require('axios')
 
 const BookshelfCtrl = {
-
-
   addtobookshelf: async (req, res) => { 
-    
   try {
     // Extract request body
     const { drawerName, userId, book } = req.body;
-   
     const missingFields = [];
     if (!drawerName) {
       missingFields.push('drawerName');
@@ -25,7 +21,6 @@ const BookshelfCtrl = {
     if (missingFields.length > 0) {
       return res.status(400).json({ message: `Missing required fields: ${missingFields.join(', ')}` });
     }
-  
     let findBook = await Book.findOne({title:book.title})
     if(!findBook)
     {
@@ -53,8 +48,7 @@ const BookshelfCtrl = {
       // Create new bookshelf document
       const newBookshelf = new Bookshelf({ user: userId, drawers: [{ name: drawerName, books: [findBook._id] }] });
       await newBookshelf.save();
-
-      const post = new Post({
+     const post = new Post({
         status: drawerName && drawerName == "Read" ? "finished reading" :drawerName,
         book: findBook._id,
         user: userId

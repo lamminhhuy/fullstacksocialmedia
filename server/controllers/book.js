@@ -3,12 +3,10 @@ const Book = require('../models/bookModel');
  const addbook = async (book) => {
   const existingBook = await Book.findOne({ googleBooksId: book.bookId });
   if (existingBook) {
-    return;
+    return existingBook;
   } else {
     const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${book.bookId}?key=AIzaSyC1QE3wf2PHJeyxKkri7C3d68OC5379ksg`);
-
     const bookdata = response.data;
-
     const newbook = new Book({
       googleBooksId: bookdata.id,
       title: bookdata.volumeInfo.title,
@@ -23,7 +21,6 @@ const Book = require('../models/bookModel');
       averageRating: bookdata.volumeInfo.averageRating,
       ratingsCount: bookdata.volumeInfo.ratingsCount
     });
-
     await newbook.save();
     return newbook;
   }

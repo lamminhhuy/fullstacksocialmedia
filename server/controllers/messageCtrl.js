@@ -26,8 +26,9 @@ const messageCtrl = {
            let existingBook; 
    if (book)
    {
-    console.log(book)
-  existingBook =  addbook(book)
+  
+  existingBook = await  addbook(book)
+
    }
             const newConversation = await Conversations.findOneAndUpdate({
                 $or: [
@@ -42,15 +43,17 @@ const messageCtrl = {
                 conversation: newConversation._id,
                 sender, call,
                 recipient, text, media,
-                book:  existingBook._id, 
+                book:  existingBook ?existingBook._id : null, 
             })
             await newMessage.save()
+      
             res.json({msg: 'Create Success!'})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
     },
+    
     getConversations: async (req, res) => {
         try {
             const features = new APIfeatures(Conversations.find({
@@ -78,7 +81,7 @@ const messageCtrl = {
                 ]
             }), req.query).paginating()
 
-            const messages = await features.query.sort('-createdAt')
+            const messages = await features.query.sort('-createdAt').populate('book')
 
             res.json({
                 messages,

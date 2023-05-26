@@ -12,7 +12,7 @@ const { ExpressPeerServer } = require('peer')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: 'https://readchoice.vercel.app/'
+    origin: '*'
   }));
 app.use(cookieParser())
 app.get('/',(req,res)=> {
@@ -48,11 +48,29 @@ app.use('/api', require('./routes/ratingRouter'))
 app.use('/api', require('./routes/reviewRouter'))
 app.use('/api', require('./routes/reportRouter'))
 app.use('/api', require('./routes/groupRouter'))
+
+app.use('/api', require('./routes/discussionRouter'))
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, err => {
     if(err) throw err;
     console.log('Connected to mongodb')
 })
+
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+app.get("/iframe-url/:id/:pageNumber", async (req, res) => {
+  const { id, pageNumber } = req.params;
+  const iframeSrc = `https://books.google.com/books?id=${id}&lpg=PP1&pg=PA${pageNumber}&output=embed`;
+
+  try {
+
+    res.send(iframeSrc)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 const port = process.env.PORT || 5000
 http.listen(port, () => {

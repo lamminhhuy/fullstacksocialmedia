@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { URL } from '../../Url';
+import { URL } from './Url';
 
 export const getDataAPI = async (url, token) => {
     const res = await axios.get(`${URL}/api/${url}`, {

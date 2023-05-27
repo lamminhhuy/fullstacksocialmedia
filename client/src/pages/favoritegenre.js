@@ -70,6 +70,9 @@ const dispatch = useDispatch()
           const categories = volumeInfo.categories
             ? volumeInfo.categories.join(", ")
             : "N/A";
+            if (!authors || !categories) {
+              return null; // Bỏ qua sách không có authors hoặc categories
+            }
           const industryIdentifiers = volumeInfo.industryIdentifiers;
           const isbn = industryIdentifiers
             ? industryIdentifiers[0].identifier

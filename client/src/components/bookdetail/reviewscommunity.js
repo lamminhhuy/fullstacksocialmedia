@@ -8,6 +8,7 @@ import UserCard from '../UserCard'
 import { CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import { postDataAPI } from '../../utils/fetchData'
+import { URL } from '../../utils/Url';
 
 const Reviewscommunity = ({bookId}) => {
   const dispatch = useDispatch()
@@ -49,7 +50,7 @@ dispatch(fetchReviews(bookId))
 
   const reportReviewHandler = async (reviewId) => {
     try {
-      const response = await axios.post(`/api/reviews/${reviewId}/report`, {
+      const response = await axios.post(`${URL}/api/reviews/${reviewId}/report`, {
         userId:user?._id,
       });
       console.log(response.data.message); // In ra thông báo từ server nếu thành công
@@ -66,7 +67,7 @@ dispatch(fetchReviews(bookId))
         content: values.reason
       };
       try {
-      const response = await axios.post(`/api/reviews/${reviewId}/report`,report)
+      const response = await axios.post(`${URL}/api/reviews/${reviewId}/report`,report)
       }
       catch (error) {
         console.error(error.response.data.error); // In ra thông báo lỗi từ server nếu có

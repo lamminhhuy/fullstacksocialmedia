@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteDrawer, getbookshelf } from '../../redux/actions/bookshelfAction';
+import { deleteDrawer, getbookshelf, updateDrawerNameAction } from '../../redux/actions/bookshelfAction';
 import Rating from '../bookresults/rating';
 import { Drawers } from './Drawer';
 import { Button, Space,Dropdown ,Menu} from 'antd';
@@ -22,16 +22,20 @@ const BookshelfSection = ({user,id,bookshelf, profile}) => {
   const [bookLists, setBookLists] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
-  const [editedBookshelfName, setEditedBookshelfName] = useState('');
 
-  const handleEditModalOpen = () => {
+  const [editedBookshelfName, setEditedBookshelfName] = useState('');
+const [selectedDrawerId ,setselectedDrawerId] =useState('');
+const [selectedDrawerName ,setselectedDrawerName] =useState('');
+
+  const handleEditModalOpen = (drawerId,drawerName) => {
     setEditedBookshelfName(bookshelf.name); // Đặt giá trị ban đầu của tên kệ sách trong ô nhập
     setEditModalVisible(true);
+    setEditedBookshelfName(drawerName)
+setselectedDrawerId(drawerId)
   };
 
   const handleEditModalSave = () => {
-    // Xử lý lưu tên kệ sách đã chỉnh sửa
-    // ...
+    dispatch(updateDrawerNameAction(auth.user._id,selectedDrawerId,editedBookshelfName))
     setEditModalVisible(false);
   };
 
@@ -73,9 +77,10 @@ const BookshelfSection = ({user,id,bookshelf, profile}) => {
    
 
         <div class="flex flex-col space-y-4  bg-white rounded-lg shadow-md hover:shadow-lg p-4  h-full">
-        <button class="bg-brown w-64  text-white font-semibold py-2 px-4 rounded shadow hover:bg-brown focus:outline-none focus:shadow-outline"  onClick={() => setVisible(true)}>
+        <button class="bg-purple w-25  hover:bg-faint-purple focus:bg-brown-dark text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline" onClick={() => setVisible(true)}>
   Add a book list
 </button>
+
 
     <div class="">
    
@@ -97,7 +102,7 @@ const BookshelfSection = ({user,id,bookshelf, profile}) => {
               
                   
 
-                            <div className="dropdown-item cursor-pointer" onClick={handleEditModalOpen}>
+                            <div className="dropdown-item cursor-pointer" onClick={(e)=> handleEditModalOpen(drawer._id,drawer.name)}>
         <FontAwesomeIcon icon={faEdit} /> Edit
       </div></div>
                 </div></div>

@@ -22,6 +22,7 @@ const {error, status} = useSelector(state => state.group)
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+          
         <button
   className="bg-purple hover:bg-faint-purple text-white text-sm font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
   type="button"

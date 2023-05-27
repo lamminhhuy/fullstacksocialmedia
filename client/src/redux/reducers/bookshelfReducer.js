@@ -1,8 +1,11 @@
-import { updateDrawers ,updatedeleteDrawer} from "../actions/bookshelfAction";
+import { updateDrawers ,updatedeleteDrawer,updateDrawerName} from "../actions/bookshelfAction";
 import {
   UPDATE_DRAWER_REQUEST,
   UPDATE_DRAWER_SUCCESS,
-  UPDATE_DRAWER_FAILURE
+  UPDATE_DRAWER_FAILURE,
+  UPDATE_DRAWERNAME_REQUEST,
+  UPDATE_DRAWERNAME_SUCCESS,
+  UPDATE_DRAWERNAME_FAILURE,
 } from '../actions/bookshelfAction';
 
 // Define initial state
@@ -69,12 +72,31 @@ const bookshelfReducer = (state = initialState, action) => {
           loading: false,
           error: null
         };
-      case UPDATE_DRAWER_FAILURE:
+      case UPDATE_DRAWERNAME_FAILURE:
         return {
           ...state,
           loading: false,
           error: action.payload
         };
+        case UPDATE_DRAWERNAME_SUCCESS:
+          return {
+            ...state,
+            loading: false,
+            drawers: state.drawers.map((drawer) => {
+              if (drawer._id === action.payload._id) {
+                return { ...drawer, name: action.payload.name };
+              }
+              return drawer;
+            }),
+            error: null
+          };
+        
+        case UPDATE_DRAWERNAME_REQUEST: 
+        return {
+         ...state,
+          loading: true,
+          error: null
+        }
     default:
       return state;
   }

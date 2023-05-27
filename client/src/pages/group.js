@@ -103,7 +103,7 @@ export  const Group = () => {
         {groupStatus === 'loading' ? (
           <div>Loading...</div>
         ) : groupStatus === 'failed' ? (
-          <div>Failed to load group</div>
+          <></>
         ) : (
           <div class="flex flex-row">
         

@@ -13,6 +13,9 @@ export const POST_TYPES = {
 export const UPDATE_DRAWER_REQUEST = 'UPDATE_DRAWER_REQUEST';
 export const UPDATE_DRAWER_SUCCESS = 'UPDATE_DRAWER_SUCCESS';
 export const UPDATE_DRAWER_FAILURE = 'UPDATE_DRAWER_FAILURE';
+export const UPDATE_DRAWERNAME_REQUEST = 'UPDATE_DRAWERNAME_REQUEST';
+export const UPDATE_DRAWERNAME_SUCCESS = 'UPDATE_DRAWERNAME_SUCCESS';
+export const UPDATE_DRAWERNAME_FAILURE = 'UPDATE_DRAWERNAME_FAILURE';
 
 export const addBookToShelf = ({name, user_id,book,auth}) =>async (dispatch) => {
     const data = {drawerName:name, userId:user_id,book} ;
@@ -88,6 +91,22 @@ export const getbookshelf = (userId,auth) =>async (dispatch) => {
     newState.drawers = newDrawers;
     return newState;
   };
+  export const updateDrawerName = (state, drawerId, newName) => {
+    // Tạo một bản sao mới của state
+    const newState = { ...state };
+    // Tạo một bản sao mới của mảng drawers
+    const newDrawers = [...newState.drawers];
+    // Tìm vị trí của drawer cần cập nhật tên
+    const updatedDrawerIndex = newDrawers.findIndex((drawer) => drawer.id === drawerId);
+    // Nếu drawer cần cập nhật được tìm thấy, cập nhật tên mới
+    if (updatedDrawerIndex !== -1) {
+      newDrawers[updatedDrawerIndex].name = newName;
+    }
+    // Cập nhật lại state với mảng drawers đã được cập nhật
+    newState.drawers = newDrawers;
+    return newState;
+  };
+  
   // actions.js
 
 export const deleteDrawer = (userId, drawerId) => {
@@ -103,7 +122,21 @@ export const deleteDrawer = (userId, drawerId) => {
     }
   };
 };
+export const updateDrawerNameAction = (userId, drawerId, newName) => {
+  return async (dispatch) => {
+    dispatch({ type: UPDATE_DRAWERNAME_REQUEST });
 
+    try {
+      const response = await axios.put(`/api/bookshelves/${userId}/drawers/${drawerId}`, { name: newName });
+      const updatedDrawer = response.data;
+
+      dispatch({ type: UPDATE_DRAWERNAME_SUCCESS, payload: updatedDrawer });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: UPDATE_DRAWERNAME_FAILURE });
+    }
+  };
+};
 export const deleteDrawerSuccess = () => {
   return { type: 'DELETE_DRAWER' };
 };

@@ -1,7 +1,7 @@
 import { GLOBALTYPES } from './globalTypes'
 import { postDataAPI } from '../../utils/fetchData'
 import valid from '../../utils/valid'
-
+import axios from 'axios'
 
 export const login = (data) => async (dispatch) => {
     try {
@@ -40,8 +40,7 @@ export const refreshToken = () => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
 
         try {
-            const res = await postDataAPI('refresh_token')
-            console.log(res.data)
+            const res = await axios.post('/api/refresh_token')
             dispatch({ 
                 type: GLOBALTYPES.AUTH, 
                 payload: {
@@ -101,7 +100,7 @@ export const register = (data) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     try {
         localStorage.removeItem('firstLogin')
-        await postDataAPI('logout')
+        await  axios.post('/api/logout')
         window.location.href = "/"
     } catch (err) {
         dispatch({ 

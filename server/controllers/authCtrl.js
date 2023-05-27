@@ -97,14 +97,14 @@ const authCtrl = {
                 path: '/api/refresh_token',
                 maxAge: 30*24*60*60*1000 // 30days
             })
-
             res.json({
                 msg: 'Login Success!',
                 access_token,
                 user: {
                     ...user._doc,
                     password: ''
-                }
+                },
+                refresh_token
             })
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -120,7 +120,8 @@ const authCtrl = {
     },
     generateAccessToken: async (req, res) => {
         try {
-            const rf_token = req.cookies.refreshtoken
+            const rf_token = req.body.refreshToken
+
             if(!rf_token) return res.status(400).json({msg: "Please login now."})
 
             jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, async(err, result) => {

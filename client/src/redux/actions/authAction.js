@@ -3,7 +3,7 @@ import { postDataAPI } from '../../utils/fetchData'
 import valid from '../../utils/valid'
 import axios from 'axios'
 import { URL } from '../../utils/Url'
-URL
+
 export const login = (data) => async (dispatch) => {
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })

@@ -1,4 +1,5 @@
 {
+  "proxy": "https://readchoiceapis2.onrender.com",
   "name": "book",
   "version": "0.1.0",
   "private": true,
@@ -18,7 +19,6 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^5.4.6",
     "axios": "^1.4.0",
-    "http-proxy-middleware": "^2.0.6",
     "jquery": "^3.7.0",
     "js-cookie": "^3.0.5",
     "moment": "^2.29.4",

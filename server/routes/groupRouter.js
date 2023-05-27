@@ -7,7 +7,7 @@ const Conversation = require('../models/conversationModel');
 
 router.get('/groups', groupCtrl.getGroups,auth);
 router.post('/groups/create', groupCtrl.createGroup,auth);
-router.get('/groups/group/:groupId', groupCtrl.getaGroup,auth);
+router.get('/group/:groupId', groupCtrl.getaGroup,auth);
 router.post('/groups/join/:groupId', auth,groupCtrl.joinaGroup);
 router.get('/groups/search', async (req, res) => {
     const { query } = req.query;

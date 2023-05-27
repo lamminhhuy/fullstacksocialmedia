@@ -23,7 +23,7 @@ app.get('/',(req,res)=> {
 const http = require('http').createServer(app)
 const io = require('socket.io')(http, {
     cors: {
-      origin:  'https://readchoice.vercel.app/',
+      origin:  '*',
       methods: ['GET', 'POST'],
     },
   });

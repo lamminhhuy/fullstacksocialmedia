@@ -1,54 +1,75 @@
 const Users = require('../models/userModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose');
+const Bookshelf = require('../models/Bookshelf_Books'); // Import the Bookshelf model
 
 const authCtrl = {
+ 
+    // ...
+    
     register: async (req, res) => {
-        try {
-            const { fullname, username, email, password, gender } = req.body
-            let newUserName = username.toLowerCase().replace(/ /g, '')
-            const user_name = await Users.findOne({username: newUserName})
-            if(user_name) return res.status(400).json({msg: "This user name already exists."})
-            const user_email = await Users.findOne({email})
-            if(user_email) return res.status(400).json({msg: "This email already exists."})
-            if(password.length < 6)
-            return res.status(400).json({msg: "Password must be at least 6 characters."})
-            const passwordHash = await bcrypt.hash(password, 12)
-            let ReadChoiceaccount =await  Users.findOne({username:"ReadChoice"})
-
-            if (!ReadChoiceaccount)
-            {
-                ReadChoiceaccount = new Users({
-            fullname:"ReadChoice"  , username: "ReadChoice",email:"readchoice@gmail.com", password:"1234567",gender, isFirstLogin: false
-            })
-            await ReadChoiceaccount.save()  
-        }
-       
-            const newUser = new Users({
-                fullname, username: newUserName, email, password: passwordHash, gender, isFirstLogin: false, following:[ReadChoiceaccount._id]
-            })
-            await newUser.save()
-                  
-            const access_token = createAccessToken({id: newUser._id})
-            const refresh_token = createRefreshToken({id: newUser._id})
-            res.cookie('refreshtoken', refresh_token, {
-                httpOnly: true,
-                path: '/api/refresh_token',
-                maxAge: 30*24*60*60*1000 // 30days
-            }) 
-            res.json({
-                msg: 'Register Success!',
-                access_token,
-                user: {
-                    ...newUser._doc,
-                    password: '',
-                    isFirstLogin: true,
-                }
-            })
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
+      try {
+        const { fullname, username, email, password, gender } = req.body;
+        let newUserName = username.toLowerCase().replace(/ /g, '');
+        const user_name = await Users.findOne({ username: newUserName });
+        if (user_name)
+          return res.status(400).json({ msg: 'This username already exists.' });
+    
+        const user_email = await Users.findOne({ email });
+        if (user_email)
+          return res.status(400).json({ msg: 'This email already exists.' });
+    
+        if (password.length < 6)
+          return res
+            .status(400)
+            .json({ msg: 'Password must be at least 6 characters.' });
+    
+        const passwordHash = await bcrypt.hash(password, 12);
+    
+        // Create the user
+        const newUser = new Users({
+          fullname,
+          username: newUserName,
+          email,
+          password: passwordHash,
+          gender,
+          isFirstLogin: false,
+        });
+        await newUser.save();
+    
+        // Create the Bookshelf for the user with predefined drawers
+        const bookshelf = new Bookshelf({
+          drawers: [
+            { name: 'Want to read', books: [] },
+            { name: 'Currently reading', books: [] },
+            { name: 'Finished', books: [] },
+          ],
+          user: newUser._id,
+        });
+        await bookshelf.save();
+    
+        const access_token = createAccessToken({ id: newUser._id });
+        const refresh_token = createRefreshToken({ id: newUser._id });
+        res.cookie('refreshtoken', refresh_token, {
+          httpOnly: true,
+          path: '/api/refresh_token',
+          maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+        });
+        res.json({
+          msg: 'Register Success!',
+          access_token,
+          user: {
+            ...newUser._doc,
+            password: '',
+            isFirstLogin: true,
+          },
+        });
+      } catch (err) {
+        return res.status(500).json({ msg: err.message });
+      }
     },
+    
     login: async (req, res) => {
         try {
             const { email, password } = req.body

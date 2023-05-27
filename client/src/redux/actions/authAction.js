@@ -41,7 +41,7 @@ export const refreshToken = () => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
 
         try {
-            const res = await axios.post(`${URL}/api/refresh_token`)
+            const res = await axios.post(`${URL}/api/refresh_token`,{ withCredentials: true })
             dispatch({ 
                 type: GLOBALTYPES.AUTH, 
                 payload: {

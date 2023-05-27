@@ -1,6 +1,7 @@
 {
   "name": "book",
   "version": "0.1.0",
+  "proxy": "https://readchoice.vercel.app/api/proxy",
   "private": true,
   "engines": {
     "node": "16.20.0"

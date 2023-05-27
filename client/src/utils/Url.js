@@ -1,1 +1,1 @@
-export const URL = process.env.NODE_ENV;
+export const URL = 'https://readchoiceapis2.onrender.com';

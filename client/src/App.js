@@ -49,7 +49,6 @@ const {auth,status} = useSelector(state =>state)
 const dispatch = useDispatch()
 useEffect(() => {
   dispatch(refreshToken())
-
   const socket = io(`${URL}`);
   dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
   return () => socket.close()

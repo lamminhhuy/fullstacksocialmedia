@@ -15,7 +15,7 @@ export const login = (data) => async (dispatch) => {
                 user: res.data.user
             } 
         })
-
+localStorage.setItem('refreshToken',res.data.refresh_token);
         localStorage.setItem("firstLogin", true)
         dispatch({ 
             type: GLOBALTYPES.ALERT, 
@@ -39,9 +39,9 @@ export const refreshToken = () => async (dispatch) => {
     const firstLogin = localStorage.getItem("firstLogin")
     if(firstLogin){
         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
-
+        const refreshToken = localStorage.getItem('refreshToken');
         try {
-            const res = await axios.post(`${URL}/api/refresh_token`,{ withCredentials: true })
+            const res = await axios.post(`${URL}/api/refresh_token`, {refreshToken})
             dispatch({ 
                 type: GLOBALTYPES.AUTH, 
                 payload: {

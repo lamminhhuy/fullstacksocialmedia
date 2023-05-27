@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getDataAPI, postDataAPI } from "../../utils/fetchData";
-
+import {URL} from "../../utils/Url"
 // Define initial state
 const initialState = {
   query: "",
@@ -162,6 +162,7 @@ export const searchBooks = createAsyncThunk("books/searchBooks", async ({keyword
 export const getBookDetails = createAsyncThunk(
   "books/getBookDetails",
   async (bookId) => {
+    console.log(bookId)
     try {
       const response = await axios.get(`${URL}/api/books/${bookId}`);
       return response.data;

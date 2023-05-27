@@ -2,7 +2,8 @@ import { GLOBALTYPES } from './globalTypes'
 import { postDataAPI } from '../../utils/fetchData'
 import valid from '../../utils/valid'
 import axios from 'axios'
-
+import { URL } from '../../utils/Url'
+URL
 export const login = (data) => async (dispatch) => {
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
@@ -40,7 +41,7 @@ export const refreshToken = () => async (dispatch) => {
         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
 
         try {
-            const res = await axios.post('/api/refresh_token')
+            const res = await axios.post(`${URL}/api/refresh_token`)
             dispatch({ 
                 type: GLOBALTYPES.AUTH, 
                 payload: {

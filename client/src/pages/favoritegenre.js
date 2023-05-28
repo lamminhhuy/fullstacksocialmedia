@@ -66,17 +66,17 @@ const dispatch = useDispatch()
         );
         const relatedBooks = relatedResponse.data.items.map((book) => {
           const volumeInfo = book.volumeInfo;
-          const authors = volumeInfo.authors ? volumeInfo.authors.join(", ") : "N/A";
+          const authors = volumeInfo.authors ? volumeInfo.authors.join(", ") : "Unknown";
           const categories = volumeInfo.categories
             ? volumeInfo.categories.join(", ")
-            : "N/A";
+            : "Unknown";
             if (!authors || !categories) {
               return null; // Bỏ qua sách không có authors hoặc categories
             }
           const industryIdentifiers = volumeInfo.industryIdentifiers;
           const isbn = industryIdentifiers
             ? industryIdentifiers[0].identifier
-            : "N/A";
+            : "Unknown";
           const imageLinks = volumeInfo.imageLinks;
           const cover_i = imageLinks ? imageLinks.thumbnail : null;
           const epub = book.accessInfo.epub.isAvailable;

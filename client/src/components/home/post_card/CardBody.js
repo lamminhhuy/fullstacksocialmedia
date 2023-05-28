@@ -44,7 +44,7 @@ const toggleReadMore = () => {
       }}
     >
       <div className="col-md-4 col-sm-12 mb-3">
-        <Link to={`book/show/${post.book?.googleBooksId ?? ""}`}>
+        <Link to={`/book/show/${post.book?.googleBooksId ?? ""}`}>
           <img
             className="h-100 w-100 object-contain"
             src={post.book ? post.book.coverImage : null}

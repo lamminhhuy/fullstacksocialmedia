@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { Modal, Button, List } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../redux/actions/messageAction';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { faShare } from '@fortawesome/free-solid-svg-icons';
 function ShareBookModal({book}) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [followingUsers, setFollowingUsers] = useState([]);
@@ -42,7 +46,7 @@ await  dispatch(addMessage({msg,auth,socket}))
   return (
     <>
       <Button  className="bg-purple hover:bg-faint-purple text-white" onClick={() => setIsModalVisible(true)}>
-        Share this book
+       <span className='mr-2'> Share     </span>  <FontAwesomeIcon icon={faShare} />
       </Button>
       <Modal title="Select a user to share with" visible={isModalVisible} onCancel={handleCancel} footer={null}>
       <List

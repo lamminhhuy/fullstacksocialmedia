@@ -9,7 +9,8 @@ import { Spin } from 'antd'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
-
+import { faShare } from '@fortawesome/free-solid-svg-icons';
+import ShareBookModal from '../components/bookresults/ShareBookModal';
 const Bookdetail = () => {
 const dispatch = useDispatch ()
 const  {id} = useParams ()
@@ -64,13 +65,12 @@ setDate(formattedDate)
 <div class="col-3 fixed"  ref={colref}> 
 {isLoading ? <Spin style={{ position: 'absolute', top: '50%', left: '28%', transform: 'translate(-50%, -50%)' }} />
  : (
-    
 <img class="w-60 h-120 object-contain mb-4 shadow border border-black-600" src={`${selectedBook.coverImage}`}   alt="Book cover image" loading="lazy"/>)}
 {selectedBook.buyLink &&(
 <a href={`${selectedBook.buyLink}`}class="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg inline-flex items-center hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-label="Shelved as 'Currently reading'. Tap to edit shelf for this book">
 Buy on Google Play
 </a>)}
-
+<ShareBookModal book={selectedBook} />
 </div>
 
   
@@ -81,7 +81,8 @@ Buy on Google Play
   <h1 class="text-3xl font-bold mb-4">{selectedBook.title}</h1>
 
   <p class="text-gray-700 mb-3"><span class="font-medium">Author:</span> {selectedBook?.author}</p>
-  <p class="text-gray-700 mb-3"><span class="font-medium">Average rating:</span> {selectedBook.averageRating}</p>
+  <p class="text-gray-700 mb-3"><span class="font-medium">Average rating:</span> {selectedBook.averageRating.toFixed(2)}
+</p>
   <p class="text-gray-700 mb-3"><span class="font-medium">Ratings:</span>{selectedBook.ratingsCount}</p>
   <p class="text-gray-700 mb-3"><span class="font-medium">Genres:</span> {selectedBook.genre}</p>
   <p class="text-gray-700 mb-3"><span class="font-medium">First Published:</span> {date}</p>

@@ -48,7 +48,7 @@ export const addDiscussion = createAsyncThunk(
 
 
 export const fetchGroup = createAsyncThunk('group/fetchGroup', async (groupId) => {
-  const response = await axios.get(`/api/group/${groupId}`);
+  const response = await axios.get(`${URL}/api/group/${groupId}`);
   return response.data;
 });
 export const fetchPosts = createAsyncThunk('group/fetchPosts', async (groupId,auth) => {
@@ -57,7 +57,7 @@ export const fetchPosts = createAsyncThunk('group/fetchPosts', async (groupId,au
   return response.data;
 });
 export const searchGroups = createAsyncThunk('groups/searchGroups', async (query) => {
-  const response = await axios.get(`/api/groups/search?query=${query}`);
+  const response = await axios.get(`${URL}/api/groups/search?query=${query}`);
   return response.data;
 });
 export const joinGroup = createAsyncThunk(

@@ -55,14 +55,14 @@ export const recommendBooks = createAsyncThunk(
       );
       const relatedBooks = relatedResponse.data.items.map((book) => {
         const volumeInfo = book.volumeInfo;
-        const authors = volumeInfo.authors ? volumeInfo.authors.join(", ") : "N/A";
+        const authors = volumeInfo.authors ? volumeInfo.authors.join(", ") : "Unknown";
         const categories = volumeInfo.categories
           ? volumeInfo.categories.join(", ")
-          : "N/A";
+          : "Unknown";
         const industryIdentifiers = volumeInfo.industryIdentifiers;
         const isbn = industryIdentifiers
           ? industryIdentifiers[0].identifier
-          : "N/A";
+          : "Unknown";
         const imageLinks = volumeInfo.imageLinks;
         const cover_i = imageLinks ? imageLinks.thumbnail : null;
         const epub = book.accessInfo.epub.isAvailable;
@@ -97,13 +97,13 @@ export const suggestbook = createAsyncThunk("books/suggestbook", async (query) =
         title: book.volumeInfo.title,
         author_name: book.volumeInfo.authors
           ? book.volumeInfo.authors.join(", ")
-          : "N/A",
+          : "Unknown",
         isbn: book.volumeInfo.industryIdentifiers
           ? book.volumeInfo.industryIdentifiers[0].identifier
-          : "N/A",
+          : "Unknown",
         genre: book.volumeInfo.categories
           ? book.volumeInfo.categories.join(", ")
-          : "N/A",
+          : "Unknown",
         cover_i: book.volumeInfo.imageLinks?.thumbnail ?? null,
         epub: book.accessInfo.epub.isAvailable
       };
@@ -111,7 +111,7 @@ export const suggestbook = createAsyncThunk("books/suggestbook", async (query) =
 
     return books;
   } catch (error) {
-    throw new Error("Failed to search books.");
+    throw new Error("");
   }
 });
 
@@ -136,13 +136,13 @@ export const searchBooks = createAsyncThunk("books/searchBooks", async ({keyword
         title: book.volumeInfo.title,
         author_name: book.volumeInfo.authors
           ? book.volumeInfo.authors.join(", ")
-          : "N/A",
+          : "Unknown",
         isbn: book.volumeInfo.industryIdentifiers
           ? book.volumeInfo.industryIdentifiers[0].identifier
-          : "N/A",
+          : "Unknown",
         genre: book.volumeInfo.categories
           ? book.volumeInfo.categories.join(", ")
-          : "N/A",
+          : "Unknown",
         
         cover_i: book.volumeInfo.imageLinks?.thumbnail ?? null,
         epub: book.accessInfo.epub.isAvailable,

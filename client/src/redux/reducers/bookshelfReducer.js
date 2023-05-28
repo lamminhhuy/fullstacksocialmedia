@@ -7,12 +7,13 @@ import {
   UPDATE_DRAWERNAME_SUCCESS,
   UPDATE_DRAWERNAME_FAILURE,
 } from '../actions/bookshelfAction';
-
+import { message } from 'antd';
 // Define initial state
 const initialState = {
   drawers: [],
   loading: false,
   error: null,
+
 };
 
 // Define reducer function
@@ -32,13 +33,15 @@ const bookshelfReducer = (state = initialState, action) => {
    case 'DELETE_DRAWER':
     return updatedeleteDrawer(state, action.payload);
     case 'ADD_BOOK_TO_BOOKSHELF_SUCCESS':
+      message.success(`Added successfully`);
       return {
         ...state,
-        drawers: action.payload,
+        drawers: [...state.drawers,action.payload],
         loading: false,
-        error:[]
+        error:[],
       };
     case 'ADD_BOOK_TO_BOOKSHELF_FAILURE':
+      message.error(`You already added this book!`);
       return { ...state, error: action.payload, loading: false };
           case UPDATE_DRAWER_REQUEST:
       return {

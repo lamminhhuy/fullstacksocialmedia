@@ -88,7 +88,7 @@ setselectedDrawerId(drawerId)
             {drawers?.map((drawer) => ( 
               <><div className='flex justify-between'> <span className="text-xl font-medium ">{drawer.name && drawer.name === "Read" ? "Finished reading" : drawer.name}</span>  
   <div className="nav-item dropdown mr-9">
-                <span className="material-icons" id="moreLink" data-toggle="dropdown">
+                <span className="material-icons hover:cursor-pointer" id="moreLink" data-toggle="dropdown">
                     more_horiz
                 </span>
 
@@ -106,7 +106,6 @@ setselectedDrawerId(drawerId)
         <FontAwesomeIcon icon={faEdit} /> Edit
       </div></div>
                 </div></div>
-
     <Drawers drawer={drawer}/>
               <hr className="mb-2 mt-1"></hr></>) )}
        

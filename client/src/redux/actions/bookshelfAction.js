@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getDataAPI, postDataAPI } from '../../utils/fetchData';
+import { URL } from '../../utils/Url';
 export const POST_TYPES = {
   CREATE_POST: 'CREATE_POST',
   LOADING_POST: 'LOADING_POST',
@@ -10,6 +11,7 @@ export const POST_TYPES = {
   FILTER_POST: 'FILTER_POST'
   
 }
+
 export const UPDATE_DRAWER_REQUEST = 'UPDATE_DRAWER_REQUEST';
 export const UPDATE_DRAWER_SUCCESS = 'UPDATE_DRAWER_SUCCESS';
 export const UPDATE_DRAWER_FAILURE = 'UPDATE_DRAWER_FAILURE';
@@ -77,12 +79,13 @@ export const getbookshelf = (userId,auth) =>async (dispatch) => {
     return newState;
   }
   export const updatedeleteDrawer = (state, deletedDrawerId) => {
+ 
     // Create a new copy of the state
     const newState = { ...state };
     // Create a new copy of the drawers array
     const newDrawers = [...newState.drawers];
     // Find the index of the deleted drawer
-    const deletedDrawerIndex = newDrawers.findIndex((drawer) => drawer.id === deletedDrawerId);
+    const deletedDrawerIndex = newDrawers.findIndex((drawer) => drawer._id === deletedDrawerId);
     // If the deleted drawer is found, remove it from the array
     if (deletedDrawerIndex !== -1) {
       newDrawers.splice(deletedDrawerIndex, 1);
@@ -113,9 +116,9 @@ export const deleteDrawer = (userId, drawerId) => {
   return async (dispatch) => {
     try {
       // Make the API request to delete the drawer
-      const response = await axios.delete(`/api/bookshelves/${userId}/drawers/${drawerId}`);
-
-      dispatch(deleteDrawerSuccess());
+      const response = await axios.delete(`${URL}/api/bookshelves/${userId}/drawers/${drawerId}`);
+console.log(drawerId)
+      dispatch( { type: 'DELETE_DRAWER' , payload:drawerId  });
     } catch (error) {
       console.error(error);
       dispatch(deleteDrawerFailure());
@@ -127,7 +130,7 @@ export const updateDrawerNameAction = (userId, drawerId, newName) => {
     dispatch({ type: UPDATE_DRAWERNAME_REQUEST });
 
     try {
-      const response = await axios.put(`/api/bookshelves/${userId}/drawers/${drawerId}`, { name: newName });
+      const response = await axios.put(`${URL}/api/bookshelves/${userId}/drawers/${drawerId}`, { name: newName });
       const updatedDrawer = response.data;
 
       dispatch({ type: UPDATE_DRAWERNAME_SUCCESS, payload: updatedDrawer });
@@ -137,8 +140,8 @@ export const updateDrawerNameAction = (userId, drawerId, newName) => {
     }
   };
 };
-export const deleteDrawerSuccess = () => {
-  return { type: 'DELETE_DRAWER' };
+export const deleteDrawerSuccess = (drawerId) => {
+  return { type: 'DELETE_DRAWER' , payload:drawerId  };
 };
 
 export const deleteDrawerFailure = () => {

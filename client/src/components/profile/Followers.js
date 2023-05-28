@@ -14,12 +14,12 @@ const Followers = ({users, setShowFollowers}) => {
                 <div className="follow_content">
                     {
                         users.map(user => (
-                            <UserCard key={user._id} user={user} setShowFollowers={setShowFollowers} >
+                         <>  <div className='flex'> <UserCard key={user._id} user={user} setShowFollowers={setShowFollowers} >   </UserCard>
                                 {
                                     auth.user._id !== user._id && <FollowBtn user={user} />
                                 }
-                            </UserCard>
-                        ))
+                         </div>
+                         </>))
                     }
                 </div>
                 

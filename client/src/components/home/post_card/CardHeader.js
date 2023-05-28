@@ -70,10 +70,10 @@ const CardHeader = ({post}) => {
             </div>
 
             <div className="nav-item dropdown">
-                <span className="material-icons" id="moreLink" data-toggle="dropdown">
+           { auth.user._id === post.user._id && ( <span className="material-icons" id="moreLink" data-toggle="dropdown">
                     more_horiz
-                </span>
-
+                </span>)
+}
                 <div className="dropdown-menu">
                     {
                         auth.user._id === post.user._id &&
@@ -85,9 +85,7 @@ const CardHeader = ({post}) => {
                         </>
                     }
 
-                    <div className="dropdown-item" onClick={handleCopyLink}>
-                        <span className="material-icons">content_copy</span> Copy Link
-                    </div>
+                
                 </div>
             </div>
         </div>

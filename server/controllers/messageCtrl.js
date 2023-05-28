@@ -21,7 +21,7 @@ const messageCtrl = {
     createMessage: async (req, res) => {
         try {
             const { sender, recipient, text, media, call,book } = req.body
-           
+          
             if(!recipient || (!text.trim() && media.length === 0 && !call)) return;
            let existingBook; 
    if (book)
@@ -45,6 +45,7 @@ const messageCtrl = {
                 recipient, text, media,
                 book:  existingBook ?existingBook._id : null, 
             })
+            
             await newMessage.save()
       
             res.json({msg: 'Create Success!'})

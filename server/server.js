@@ -33,7 +33,10 @@ io.on('connection', socket => {
     SocketServer(socket)
 })
 ExpressPeerServer(http, { path: '/' })
-
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  next();
+});
 
 // Routes
 app.use('/api', require('./routes/authRouter'))
@@ -50,11 +53,25 @@ app.use('/api', require('./routes/reportRouter'))
 app.use('/api', require('./routes/groupRouter'))
 
 app.use('/api', require('./routes/discussionRouter'))
+app.get('/books/:id/:pageNumber', async (req, res) => {
+  try {
+    const { id, pageNumber } = req.params;
+
+    const url = `https://books.google.com/books?id=${id}&lpg=PP1&pg=PA${pageNumber}&output=embed`;
+    const response = await axios.get(url);
+
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, err => {
     if(err) throw err;
     console.log('Connected to mongodb')
 })
+
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -71,8 +88,11 @@ app.get("/iframe-url/:id/:pageNumber", async (req, res) => {
   }
 });
 
-
 const port = process.env.PORT || 5000
 http.listen(port, () => {
     console.log('Server is running on port', port)
 })
+// Kết nối tới cơ sở dữ liệu MongoDB
+
+
+// Gọi hàm thực hiện thay đổi unique index

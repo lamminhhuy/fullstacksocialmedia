@@ -8,27 +8,31 @@ const reviewCtrl = {
     const { userId, bookId } = req.params;
     const { reviewText } = req.body;
     try {
-      // Check if user has already reviewed the book
-       const existingReview = await Review.findOne({user:userId})
-       if(existingReview)
-       {
-        return res.status(404).json({ message: "You have already reviewed this book!" });
+      // Kiểm tra xem người dùng đã đánh giá sách này chưa
+      const existingReview = await Review.findOne({ user: userId, book: bookId });
+  
+      // Nếu người dùng đã đánh giá sách rồi, trả về thông báo lỗi
 
-       }
-        // Create new review
-        const newReview = new Review({
-          author: mongoose.Types.ObjectId(userId),
-          content: reviewText,
-          book:bookId,
-        });
-        await newReview.save();
-       
-        return res.status(201).json(newReview);
+      // Tạo đánh giá mới
+      const newReview = new Review({
+        author: userId,
+        content: reviewText,
+        book: bookId,
+      });
+      await newReview.save();
+  
+      // Populate the author and book fields in the new review
+      const populatedReview = await Review.findById(newReview._id)
+        .populate('author')
+        .populate('book')
+
+  
+      return res.status(201).json(populatedReview);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-  },
+  },  
 
   getReviews: async (req, res) => {
     const { bookId } = req.params;

@@ -39,6 +39,7 @@ const BookshelfCtrl = {
     // Verify that drawer name, user ID, and book ID are provided
     // Check if bookshelf exists; if not, create a new one
     let bookshelf = await Bookshelf.findOne({ user: userId });
+    let newdrawer;
     if (!bookshelf) {
       // Verify that user exists
       const user = await User.findById(userId);
@@ -73,9 +74,8 @@ const BookshelfCtrl = {
         return   res.status(400).json({ message: 'Book already added to the bookshelf' });
       }
       } else {
-        
-        bookshelf.drawers.push({name: drawerName, books: [findBook._id]});
-  
+       newdrawer ={name: drawerName, books: [findBook._id]}
+        bookshelf.drawers.push(newdrawer);
         const post = new Post({
           status: drawerName && drawerName == "Read" ? "finished reading" :drawerName,
           book: findBook._id,
@@ -85,7 +85,8 @@ const BookshelfCtrl = {
       }
     }
     await bookshelf.save();
-    return res.status(200).json({ message: 'Book added to the bookshelf' });
+    const data = bookshelf.drawers.find(drawer => drawer.name === drawerName)
+    return res.status(200).json({ ...data, books: [findBook]});
     // Return success message
   } catch (error) {
     console.error(error);

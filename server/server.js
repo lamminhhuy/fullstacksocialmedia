@@ -12,7 +12,7 @@ const { ExpressPeerServer } = require('peer')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: true
+    origin:'https://readchoice.vercel.app'
   }));
 app.use(cookieParser())
 app.get('/',(req,res)=> {
@@ -78,20 +78,18 @@ app.set("views", __dirname + "/views");
 app.get("/iframe-url/:id/:pageNumber", async (req, res) => {
   const { id, pageNumber } = req.params;
   const iframeSrc = `https://books.google.com/books?id=${id}&lpg=PP1&pg=PA${pageNumber}&output=embed`;
-
   try {
-
     res.send(iframeSrc)
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
 });
-
 const port = process.env.PORT || 5000
 http.listen(port, () => {
     console.log('Server is running on port', port)
 })
+
 // Kết nối tới cơ sở dữ liệu MongoDB
 
 

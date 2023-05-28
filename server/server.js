@@ -32,11 +32,7 @@ io.on('connection', socket => {
     console.log('A user connected');
     SocketServer(socket)
 })
-ExpressPeerServer(http, { path: '/' })
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  next();
-});
+
 
 // Routes
 app.use('/api', require('./routes/authRouter'))

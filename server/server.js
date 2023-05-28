@@ -12,7 +12,7 @@ const { ExpressPeerServer } = require('peer')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin:'https://readchoice.vercel.app'
+    origin:'*'
   }));
 app.use(cookieParser())
 app.get('/',(req,res)=> {

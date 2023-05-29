@@ -16,6 +16,7 @@ const socket = io(`${URL}`);
 function Discussion() {
   const dispatch = useDispatch();
   const {groupId} = useParams()
+  const auth = useSelector(state=> state.auth)
   const messages = useSelector(selectMessages);
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
@@ -56,7 +57,7 @@ function Discussion() {
           Discussions
         </Title>
  </div>
-        <DisscussionSection groupId={groupId} />
+        <DisscussionSection groupId={groupId} auth={auth} />
     </div>
 
     <div className="col-md-8 px-0">

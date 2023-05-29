@@ -91,10 +91,10 @@ dispatch(fetchReviews(bookId))
           {reviews &&
             reviews.map((review) => (
               <li key={review.author ? review.author._id : null} className="mb-2">
-                <div className="flex flex-col md:flex-row items-center">
+                <div className="flex flex-col md:flex-row items-center justify-between">
                   <UserCard user={review ? review.author : null} border="" />
-                  <div className="flex-1 md:ml-4 mt-2 md:mt-0">
-                    <div className="text-gray-700">{review.content}</div>
+                  <div className="flex mt-2 md:mt-0  md:flex-row justify-between ">
+                    <div className="text-gray-700 ">{review.content}</div>
                     <div className="text-gray-600 text-sm flex items-center mt-1">
                       <div className="flex-col">
                         <div className="ml-0.5">{review.likes.length}</div>

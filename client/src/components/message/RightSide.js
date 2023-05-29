@@ -9,12 +9,15 @@ import { imageShow, videoShow } from '../../utils/mediaShow'
 import { imageUpload } from '../../utils/imageUpload'
 import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '../../redux/actions/messageAction'
 import LoadIcon from '../../images/loading.gif'
+import DiscussionMembers from '../group/DiscussionMembers'
 
 const RightSide = () => {
     const { auth, message, theme, socket, peer } = useSelector(state => state)
     const dispatch = useDispatch()
-
+    
+const discussions = useSelector (state => state.group.discussions)
     const { id } = useParams()
+    const { groupId } = useParams()
     const [user, setUser] = useState([])
     const [text, setText] = useState('')
     const [media, setMedia] = useState([])
@@ -27,7 +30,7 @@ const RightSide = () => {
     const [result, setResult] = useState(9)
     const [page, setPage] = useState(0)
     const [isLoadMore, setIsLoadMore] = useState(0)
-
+const [members, setMembers] = useState([])
     const history = useNavigate()
 
     useEffect(() => {
@@ -38,6 +41,20 @@ const RightSide = () => {
             setPage(newData.page)
         }
     },[message.data, id])
+    useEffect(() => {
+     
+        if(discussions)
+        {
+            console.log(discussions)
+        const discussion = discussions.find((discussion) => discussion._id === id);
+    
+        if (discussion) {
+          setMembers(discussion.members);
+     
+        }
+    }
+      }, [dispatch, discussions, id]);
+      
 
     useEffect(() => {
         if(id && message.users.length > 0){
@@ -148,9 +165,9 @@ const RightSide = () => {
     return (
         <>
             <div className="message_header" style={{cursor: 'pointer'}} >
-                {
-              
-                }
+                
+            {groupId  && <DiscussionMembers members={members}/>}
+                
             </div>
 
             <div className="chat_container" 

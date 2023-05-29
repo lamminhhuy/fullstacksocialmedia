@@ -128,7 +128,7 @@ setDate(formattedDate)
           <div>
             {selectedBook.downloadLink !== '' && (
               <Link to={`/book/${id}/`} className="inline-block">
-                <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center mt-2 mb-2">
+                <button className="bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-full inline-flex items-center mt-2 mb-2">
                   <span className="mr-2">Read Online</span>
                   <FontAwesomeIcon icon={faBookOpen} />
                 </button>

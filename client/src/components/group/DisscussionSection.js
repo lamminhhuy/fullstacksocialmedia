@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Spin,Button,Modal ,List,Input} from 'antd';
-import { addDiscussion, fetchDiscussions } from '../../redux/reducers/groupSlice';
+import { addDiscussion, fetchDiscussions, joinConversation } from '../../redux/reducers/groupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from 'antd';
 import { Link, useParams } from 'react-router-dom';
@@ -35,6 +35,13 @@ const DisscussionSection = ({groupId,auth}) => {
        useEffect(() => {
     dispatch(fetchDiscussions(groupId));
   }, [dispatch, groupId ]);
+  const joinaDiscussion = useCallback(
+    (discussionId) => {
+      dispatch(joinConversation({ discussionId, userId: auth.user._id }));
+    },
+    [dispatch, auth.user._id]
+  );
+  
   return (
     <div>  
   <Modal
@@ -64,14 +71,14 @@ const DisscussionSection = ({groupId,auth}) => {
     <>
       <List.Item className='w-full' >
         <Link to={`/group/${groupId}/discussion/${item._id}`}  className='w-full'>
-          <div className="cursor-pointer hover:text-blue-500 border py-3 px-3  w-full rounded ">
+          <div className="cursor-pointer hover:text-blue-500 border py-3 px-3  w-full rounded flex  justify-between">
             <div className="text-lg font-bold ">{item.title}</div>
-          
+       <div>  { item.members.every((member => member._id !== auth.user._id )) && (<button className='btn bg-purple text-white' onClick={(e)=> joinaDiscussion(item._id)}>Join</button>)}</div>
           </div>
         </Link>
       </List.Item>
     </>
-
+ 
   )}
 />
 </div>

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getDataAPI, postDataAPI } from '../../utils/fetchData';
 import axios from 'axios';
 import { URL } from '../../utils/Url';
+import { message } from 'antd';
 
 const initialState = {
   groups: [],
@@ -9,7 +10,8 @@ const initialState = {
   posts: [],
   discussions:[],
   status: 'idle',
-  error: null
+  error: null,
+  success: null,
 };
 export const fetchGroupsAsync = createAsyncThunk(
   'groups/fetchGroups',
@@ -18,6 +20,19 @@ export const fetchGroupsAsync = createAsyncThunk(
     return response.data;
   }
 );
+export const joinConversation = createAsyncThunk(
+  'conversation/join',
+  async ({ discussionId, userId }) => {
+    try {
+      const response = await axios.post(`${URL}/api/conversations/${discussionId}/join`, { userId });
+      message.success(response.data.message);
+      return response.data;
+    } catch (error) {
+      throw Error('Failed to join conversation');
+    }
+  }
+);
+
 export const fetchDiscussions = createAsyncThunk(
   'group/fetchDiscussions',
   async (groupId, { getState }) => {
@@ -35,7 +50,7 @@ export const addDiscussion = createAsyncThunk(
   async ({ groupId, title }, { getState }) => {
     try {
       const { auth } = getState();
-      const response = await postDataAPI('/api/group/discussions', {
+      const response = await postDataAPI('/group/discussions', {
         groupId,
         title
       },auth.token);
@@ -155,6 +170,23 @@ export const postSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+      .addCase(joinConversation.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = null;
+      })
+      .addCase(joinConversation.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = action.payload.message;
+      
+      })
+      .addCase(joinConversation.fulfilled.match, (state, action) => {
+     
+      })
+      .addCase(joinConversation.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 

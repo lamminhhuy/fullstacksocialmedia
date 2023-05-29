@@ -90,7 +90,7 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
    
              {book.epub ? (
   <Link to={`/book/${book.bookId}`}>
-    <Button className=" bg-brown text-white font-bold py-2 px-4 rounded-md flex items-center">Read online</Button>
+    <Button className=" bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md flex items-center">Read online</Button>
   </Link>
 ) :  book.buyLink && (
   <a href={`${book.buyLink}`} className="inline-block bg-brown text-white font-bold py-2 px-4 rounded-md">Buy Link</a>

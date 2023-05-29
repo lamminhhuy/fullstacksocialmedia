@@ -17,8 +17,8 @@ const AdminPanel = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('1');
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch('/api/users');
-      const response2 = await fetch('/api/reports');
+      const response = await fetch(`${URL}/api/users`);
+      const response2 = await fetch(`${URL}/api/reports`);
       const data = await response.json();
       const data2 = await response2.json();
       console.log(data2)

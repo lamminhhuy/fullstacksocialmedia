@@ -74,7 +74,7 @@ setDate(formattedDate)
           {selectedBook.buyLink && (
             <a
               href={`${selectedBook.buyLink}`}
-              className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg inline-flex items-center hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="bg-purple text-gray-800 py-2 px-4 rounded-lg inline-flex items-center= focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               aria-label="Shelved as 'Currently reading'. Tap to edit shelf for this book"
             >
               Buy on Google Play

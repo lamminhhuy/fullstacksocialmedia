@@ -69,14 +69,14 @@ const DisscussionSection = ({groupId,auth}) => {
   dataSource={group.discussions}
   renderItem={(item) => (
     <>
-      <List.Item className='w-full' >
+    
         <Link to={`/group/${groupId}/discussion/${item._id}`}  className='w-full'>
-          <div className="cursor-pointer hover:text-blue-500 border py-3 px-3  w-full rounded flex  justify-between">
+          <div className="cursor-pointer hover:text-blue-500 border py-3 px-3 mt-3 w-full rounded flex  justify-between">
             <div className="text-lg font-bold ">{item.title}</div>
        <div>  { item.members.every((member => member._id !== auth.user._id )) && (<button className='btn bg-purple text-white' onClick={(e)=> joinaDiscussion(item._id)}>Join</button>)}</div>
           </div>
         </Link>
-      </List.Item>
+      
     </>
  
   )}

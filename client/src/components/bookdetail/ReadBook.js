@@ -14,7 +14,7 @@ const ReadBook = () => {
   useEffect(() => {
     setLoading(true);
     const history = JSON.parse(localStorage.getItem(`book_${id}_history`) || "{}");
-    setPageNumber(history.currentPage || 1);
+    setPageNumber(history.currentPage+1 || 1);
     const fetchBook = async () => {
         try {
             const result = await axios(`https://www.googleapis.com/books/v1/volumes/${id}`);
@@ -67,20 +67,30 @@ const onloadHanlder = () => {
   setLoading(false)
     window.addEventListener('keydown', handleKeyDown);
 }
+function handleMouseUp(event) {
+  const selectedText = window.getSelection().toString();
+  console.log("Selected text:", selectedText);
+}
   return (
     <>
     <div className='w-100 h-10 bg-brown flex items-center'> <Link to={'/'}> <img  src='https://res.cloudinary.com/dpzpv7tjr/image/upload/v1682266848/ReadChoice/logo_wvfeun.png' className='w-40 object-contain ml-2 hover:cursor'/></Link> </div>
     <div className="min-h-screen book-reader">  
-      <iframe  className="w-full"
-        title={id} 
-        src={`https://books.google.com/books?id=${id}&lpg=PP1&pg=PA${pageNumber}&output=embed`}
-        width="100%" 
-        height="100%" 
-        frameBorder="0" 
-        scrolling="auto"
-        onLoad={ onloadHanlder}
-
-      />
+    <iframe
+  className="w-full"
+  title={id}
+  src={`https://books.google.com/books?id=${id}&lpg=PP1&pg=PA${pageNumber}&output=embed`}
+  width="100%"
+  height="100%"
+  frameBorder="0"
+  scrolling="auto"
+  onLoad={onloadHanlder}
+  ref={(iframe) => {
+    if (iframe) {
+      const iframeWindow = iframe.contentWindow;
+      iframeWindow.document.addEventListener("mouseup", handleMouseUp);
+    }
+  }}
+/>
       <div className="flex justify-between items-center min-h-screen ">
     <Button  className="h-10 w-30 ml-40"  icon={<LeftOutlined style={{ color: "white  " }} onClick={handlePreviousPage}/>} style={{backgroundColor:"#392415"}} />
 

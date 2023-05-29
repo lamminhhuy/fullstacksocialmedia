@@ -31,7 +31,7 @@ router.get('/groups/search', async (req, res) => {
 router.get('/groups/:groupId/discussions', async (req, res) => {
   try {
     const groupId = req.params.groupId;
-    const discussions = await Conversation.find({ group: groupId }).populate('recipients');
+    const discussions = await Conversation.find({ group: groupId }).populate('recipients').populate('members');
     res.json(discussions);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -6,12 +6,13 @@ import Search from './Search'
 const Header = () => {
 
     return (
-        <div className="header ">
+        <div className="header">
+
            
             <nav className="navbar navbar-Enter to Search expand-lg border-b-0 mt-0 pt-0 bg-white rounded-lg shadow-sm hover:shadow-lg ">
 
                 <Link to="/" className="logo">
-             <img src='https://res.cloudinary.com/dpzpv7tjr/image/upload/v1682266848/ReadChoice/logo_wvfeun.png' className='w-40 object-contain'/>
+             <img src='https://res.cloudinary.com/dpzpv7tjr/image/upload/v1682266848/ReadChoice/logo_wvfeun.png' className='w-full object-contain md:w-40 '/>
   </Link>
 
                 <Search />

@@ -35,67 +35,70 @@ const toggleReadMore = () => {
   const shouldRenderReadMore = post.book?.description?.length > maxLength && !showFullDescription;
     return (
   
-    <div className="card_body">
-    <div
-      className="card_body-content row"
-      style={{
-        filter: theme ? "invert(1)" : "invert(0)",
-        color: theme ? "white" : "#111",
-      }}
-    >
-      <div className="col-md-4 col-sm-12 mb-3">
-        <Link to={`/book/show/${post.book?.googleBooksId ?? ""}`}>
-          <img
-            className="h-100 w-100 object-contain"
-            src={post.book ? post.book.coverImage : null}
-          />
-        </Link>
+      <div className="card_body">
+      <div
+        className="card_body-content flex flex-col sm:flex-row"
+        style={{
+          filter: theme ? "invert(1)" : "invert(0)",
+          color: theme ? "white" : "#111",
+        }}
+      >
+        <div className="sm:w-1/4 mb-3">
+          <Link to={`/book/show/${post.book?.googleBooksId ?? ""}`}>
+            <img
+              className="h-100 w-100 object-contain"
+              src={post.book ? post.book.coverImage : null}
+              alt="Book cover"
+            />
+          </Link>
+        </div>
+    
+        <div className="sm:w-3/4 sm:pl-3">
+          <h2 className="font-bold">{post.book ? post.book.title : null}</h2>
+          <p>by {post.book ? post.book.author : null}</p>
+          <div className="dropdown mb-3">
+            <button
+              value="Want to Read"
+              onClick={(e) => addbook(e.target.value, user._id, post.book, auth)}
+              className="btn btn-outline-secondary w-85 rounded-0"
+            >
+              <i className="fas fa-check"></i> Want to Read
+            </button>
+            <button
+              className="btn btn-outline-secondary dropdown-toggle w-15 border-left-0 rounded-0"
+              type="button"
+              id="menu1"
+              data-toggle="dropdown"
+            ></button>
+            <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
+              {drawers &&
+                drawers
+                  .filter((drawer) => drawer.name !== "Want to Read")
+                  .map((drawer) => (
+                    <li role="presentation" key={drawer.name}>
+                      <a
+                        role="menuitem"
+                        tabIndex="-1"
+                        href="#"
+                        onClick={() => addbook(drawer.name, user._id, post.book, auth)}
+                      >
+                        {drawer.name}
+                      </a>
+                    </li>
+                  ))}
+            </ul>
+          </div>
+          <p className="text-sm">{truncatedDescription}</p>
+          {shouldRenderReadMore && (
+            <span onClick={toggleFullDescription} className="text-primary cursor-pointer">
+              {showFullDescription ? "Show less" : "Read more"}
+            </span>
+          )}
+          <p className="text-sm">Genre: {post?.book?.genre}</p>
+        </div>
       </div>
-  
-      <div className="col-md-8 col-sm-12">
-        <h2 className="font-bold">{post.book ? post.book.title : null}</h2>
-        <p>by {post.book ? post.book.author : null}</p>
-        <div
-      className="dropdown max-h-full mb-3 "
-     
-    > 
-      <button value="Want to Read" onClick ={(e)=>addbook(e.target.value,user._id,post.book,auth)}className="btn btn-outline-secondary w-85 rounded-0">
-        <i className="fas fa-check"></i> Want to Read
-      </button>
-      <button
-className="btn btn-outline-secondary dropdown-toggle w-15 border-left-0 rounded-0"
-type="button"
-id="menu1"
-data-toggle="dropdown"
-></button>     <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">  {drawers && drawers.filter((drawer) => drawer.name !== "Want to Read").map((drawer) => (
-  <li role="presentation">
-    <a
-      role="menuitem"
-      tabIndex="-1"
-      href="#"
-      onClick={() => addbook(drawer.name, user._id, post.book, auth)}
-    >
-      {drawer.name} 
-    </a>
-  </li>
-))}
-
-</ul>
     </div>
-        <p className="text-sm">{truncatedDescription}</p>
-        {shouldRenderReadMore && (
-          <span
-            onClick={toggleFullDescription}
-            className="text-primary cursor-pointer"
-          >
-            {showFullDescription ? "Show less" : "Read more"}
-          </span>
-        )}
-        <p className="text-sm">Genre: {post?.book?.genre}</p>
-      </div>
-    </div>
-  </div>
-  
+    
     )
 }
 

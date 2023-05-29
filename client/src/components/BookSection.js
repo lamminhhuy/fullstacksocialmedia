@@ -47,29 +47,30 @@ export const BookSection = React.memo(({ keyword }) => {
   };
 
   return (
-    <div className='container w-2/3'> 
-      <div className='row'> 
-        <div className='col-8'>
-          {renderLoadingError()}
-          <BookFilter onSelectCategory={handleCategorySelect} keyword={keyword}/>
-          {renderBookList()}
-        </div>
-        <div className='col-4'>
-          <div class="bg-white shadow rounded p-4">
-            <h3 class="text-lg font-bold mb-2">List of book genres</h3>
-            <Menu>
-  <Menu.Item onClick={() => handleCategorySelect('Science')}>Science</Menu.Item>
-  <Menu.Item onClick={() => handleCategorySelect('Literature')}>Literature</Menu.Item>
-  <Menu.Item onClick={() => handleCategorySelect('Cosmic')}>Cosmic</Menu.Item>
-  <Menu.Item onClick={() => handleCategorySelect('Politics')}>Politics</Menu.Item>
-  <Menu.Item onClick={() => handleCategorySelect('Histories')}>Histories</Menu.Item>
-  <Menu.Item onClick={() => handleCategorySelect('Religions')}>Religions</Menu.Item>
-  <Menu.Item onClick={() => handleCategorySelect('Other')}>Other</Menu.Item>
-</Menu>
+    <div className='container'>
+  <div className='row'>
+    <div className='  col-md-8'>
+      {renderLoadingError()}
+      <BookFilter onSelectCategory={handleCategorySelect} keyword={keyword}/>
+      {renderBookList()}
+    </div>
+    <div className=' col-md-4  mt-4'>
+      <div className="bg-white shadow rounded p-4">
+        <h3 className="text-lg font-bold mb-2">List of book genres</h3>
+        <Menu>
+          <Menu.Item onClick={() => handleCategorySelect('Science')}>Science</Menu.Item>
+          <Menu.Item onClick={() => handleCategorySelect('Literature')}>Literature</Menu.Item>
+          <Menu.Item onClick={() => handleCategorySelect('Cosmic')}>Cosmic</Menu.Item>
+          <Menu.Item onClick={() => handleCategorySelect('Politics')}>Politics</Menu.Item>
+          <Menu.Item onClick={() => handleCategorySelect('Histories')}>Histories</Menu.Item>
+          <Menu.Item onClick={() => handleCategorySelect('Religions')}>Religions</Menu.Item>
+          <Menu.Item onClick={() => handleCategorySelect('Other')}>Other</Menu.Item>
+        </Menu>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
+
 );
 });
 

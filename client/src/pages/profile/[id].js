@@ -22,19 +22,20 @@ const Profile = () => {
   }, [ id,dispatch]);
 
   return (
-    <div className="w-full">
-      <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
-      <div className="container ">
-        <div className="row ">
-          <div className="col-6  ">
-           <ActivitiesSection userId ={id}  user={auth.user}posts={profile.posts?.posts}/>
-          </div>
-          <div className="col-6 ">
-          <BookshelfSection user={auth.user}profile={profile} id={id} bookshelf={bookshelf} />
-          </div>
-        </div>
+<div className="w-full">
+  <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
+  <div className="container">
+    <div className="row">
+      <div className="col-md-6 col-sm-12">
+        <ActivitiesSection userId={id} user={auth.user} posts={profile.posts?.posts} />
+      </div>
+      <div className="col-md-6 col-sm-12">
+        <BookshelfSection user={auth.user} profile={profile} id={id} bookshelf={bookshelf} />
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 

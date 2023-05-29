@@ -57,62 +57,64 @@ setselectedDrawerId(drawerId)
 
 
   return (
+    <div class="my-4 flex flex-col justify-center h-full">
+    <Modal
+      title="Edit Your Book List"
+      visible={editModalVisible}
+      onOk={handleEditModalSave}
+      onCancel={handleEditModalCancel}
+    >
+      <Input
+        value={editedBookshelfName}
+        onChange={(e) => setEditedBookshelfName(e.target.value)}
+      />
+    </Modal>
+    <AddBookListModal visible={visible} onCreate={handleCreate} onCancel={handleCancel} auth={auth} />
   
-    <div class="my-4 flex flex-col justify-center  h-full">
-        <Modal
-        title="Edit Your Book List"
-        visible={editModalVisible}
-        onOk={handleEditModalSave}
-        onCancel={handleEditModalCancel}
-      >
-        <Input
-          value={editedBookshelfName}
-          onChange={(e) => setEditedBookshelfName(e.target.value)}
-        />
-      </Modal>
-   <AddBookListModal visible={visible} onCreate={handleCreate} onCancel={handleCancel} auth={auth}/>
-    <div className='flex justify-center'>
+    <div className="flex justify-center">
       <h2 class="text-lg font-medium mb-2">{profile.users[0]?.fullname.toUpperCase()}'s Bookshelves</h2>
     </div>
-   
-
-        <div class="flex flex-col space-y-4  bg-white rounded-lg shadow-md hover:shadow-lg p-4  h-full">
-        <button class="bg-purple w-25  hover:bg-faint-purple focus:bg-brown-dark text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline" onClick={() => setVisible(true)}>
-  Add a book list
-</button>
-
-
-    <div class="">
-   
-        
-            {drawers?.map((drawer) => ( 
-              <><div className='flex justify-between'> <span className="text-xl font-medium ">{drawer.name && drawer.name === "Read" ? "Finished reading" : drawer.name}</span>  
-  <div className="nav-item dropdown mr-9">
-                <span className="material-icons hover:cursor-pointer" id="moreLink" data-toggle="dropdown">
-                    more_horiz
-                </span>
-
-<div className="dropdown-menu mr-20 ">
-                  
-                    
-                     
-                            <div className="dropdown-item cursor-pointer" onClick={(e)=> handleDeleteDrawer(drawer._id)} >
-                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
-                            </div>
-              
-                  
-
-                            <div className="dropdown-item cursor-pointer" onClick={(e)=> handleEditModalOpen(drawer._id,drawer.name)}>
-        <FontAwesomeIcon icon={faEdit} /> Edit
-      </div></div>
-                </div></div>
-    <Drawers drawer={drawer}/>
-              <hr className="mb-2 mt-1"></hr></>) )}
-       
-{drawers&& drawers.length ==0  &&( <span>{user && user.fullname} doesn't have any book yet </span>)}
-    </div>   </div>  
   
-</div>
+    <div class="flex flex-col space-y-4 bg-white rounded-lg shadow-md hover:shadow-lg p-4 h-full">
+      <button
+        class="bg-purple w-25 hover:bg-faint-purple focus:bg-brown-dark text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:shadow-outline"
+        onClick={() => setVisible(true)}
+      >
+        Add a book list
+      </button>
+  
+      <div class="">
+        {drawers?.map((drawer) => (
+          <div key={drawer._id}>
+            <div className="flex justify-between">
+              <span className="text-xl font-medium ">
+                {drawer.name && drawer.name === "Read" ? "Finished reading" : drawer.name}
+              </span>
+              <div className="nav-item dropdown mr-9">
+                <span className="material-icons hover:cursor-pointer" id="moreLink" data-toggle="dropdown">
+                  more_horiz
+                </span>
+                <div className="dropdown-menu mr-20">
+                  <div className="dropdown-item cursor-pointer" onClick={(e) => handleDeleteDrawer(drawer._id)}>
+                    <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                  </div>
+                  <div className="dropdown-item cursor-pointer" onClick={(e) => handleEditModalOpen(drawer._id, drawer.name)}>
+                    <FontAwesomeIcon icon={faEdit} /> Edit
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Drawers drawer={drawer} />
+            <hr className="mb-2 mt-1"></hr>
+          </div>
+        ))}
+        {drawers && drawers.length === 0 && (
+          <span>{user && user.fullname} doesn't have any book yet</span>
+        )}
+      </div>
+    </div>
+  </div>
+  
 
   )
 }

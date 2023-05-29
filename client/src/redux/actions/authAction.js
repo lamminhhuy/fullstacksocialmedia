@@ -101,7 +101,7 @@ export const register = (data) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     try {
         localStorage.removeItem('firstLogin')
-        await  axios.post('/api/logout')
+        await  axios.post(`${URL}/api/logout`)
         window.location.href = "/"
     } catch (err) {
         dispatch({ 

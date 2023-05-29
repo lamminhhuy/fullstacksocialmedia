@@ -88,7 +88,7 @@ useEffect(() => {
     
      {auth.token && <Header />}
 
-<div className='flex min-w-[0] justify-center  m-3 min-h-screen relative '>
+<div className='flex  justify-center  m-3 min-h-screen relative '>
 {status && <PostForm auth={auth}/>}
 
 {auth.token && <SocketClient />}

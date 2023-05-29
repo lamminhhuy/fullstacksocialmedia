@@ -71,7 +71,7 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
                  id="menu1"
                  data-toggle="dropdown"
                ></button>
-               <ul className="dropdown-menu" role="menu" aria-labelledby="menu1"> {drawers.isArray && drawers.filter((drawer) => drawer.name !== "Want to read").map((drawer) => (
+               <ul className="dropdown-menu" role="menu" aria-labelledby="menu1"> {drawers && drawers.filter((drawer) => drawer.name !== "Want to read").map((drawer) => (
   <li role="presentation">
     <a
       role="menuitem"

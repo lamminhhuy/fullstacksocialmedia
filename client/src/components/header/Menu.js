@@ -65,7 +65,7 @@ const Menu = () => {
               <NotifyModal />
             </div>
           </li>
-          <li className="nav-item dropdown ml-1">
+          <li className="nav-item dropdown ml-1" style={{opacity:1}}>
             <span
               className="nav-link dropdown-toggle"
               id="navbarDropdown"
@@ -76,11 +76,11 @@ const Menu = () => {
             >
               <Avatar src={auth.user && auth.user.avatar} size="medium-avatar" />
             </span>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div className="dropdown-menu "  aria-labelledby="navbarDropdown">
               <Link className="dropdown-item" to={`/profile/${auth.user && auth.user._id}`}>
                 Profile
               </Link>
-              {auth.user && auth.user.isAdmin === "true" && (
+              {auth.user && auth.user.isAdmin  && (
                 <Link className="dropdown-item" to="/admindashboard">
                   Admin panel
                 </Link>

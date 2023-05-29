@@ -9,8 +9,7 @@ import { Spin } from 'antd'
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
-import { faShare } from '@fortawesome/free-solid-svg-icons';
-import ShareBookModal from '../components/bookresults/ShareBookModal';
+
 const Bookdetail = () => {
 const dispatch = useDispatch ()
 const  {id} = useParams ()
@@ -58,75 +57,92 @@ setDate(formattedDate)
 
 
   return (
-    <div className='w-2/3 mt-4' >
-      
-      {selectedBook && (
-<div className='flex flex-row gap-1'>
-<div class="col-3 fixed"  ref={colref}> 
-{isLoading ? <Spin style={{ position: 'absolute', top: '50%', left: '28%', transform: 'translate(-50%, -50%)' }} />
- : (
-<img class="w-60 h-120 object-contain mb-4 shadow border border-black-600" src={`${selectedBook.coverImage}`}   alt="Book cover image" loading="lazy"/>)}
-{selectedBook.buyLink &&(
-<a href={`${selectedBook.buyLink}`}class="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg inline-flex items-center hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-label="Shelved as 'Currently reading'. Tap to edit shelf for this book">
-Buy on Google Play
-</a>)}
-<ShareBookModal book={selectedBook} />
-</div>
-
-  
-<div class="col-8 ml-auto">
-  <h1 class="text-3xl font-bold mb-2"></h1>
-
-  
-  <h1 class="text-3xl font-bold mb-4">{selectedBook.title}</h1>
-
-  <p class="text-gray-700 mb-3"><span class="font-medium">Author:</span> {selectedBook?.author}</p>
-  <p class="text-gray-700 mb-3"><span class="font-medium">Average rating:</span> {selectedBook.averageRating.toFixed(2)}
-</p>
-  <p class="text-gray-700 mb-3"><span class="font-medium">Ratings:</span>{selectedBook.ratingsCount}</p>
-  <p class="text-gray-700 mb-3"><span class="font-medium">Genres:</span> {selectedBook.genre}</p>
-  <p class="text-gray-700 mb-3"><span class="font-medium">First Published:</span> {date}</p>
-  
-  {selectedBook.description &&(<><p class="text-gray-700 mb-3"><span class="font-medium">Description: </span>{selectedBook.description.replace(/(<([^>]+)>)/gi, '')}</p></>)}
-  <div class="mb-4">
-    <h3 class="text-lg font-medium mb-3">About the author</h3>
-    <div class="flex mb-1">
-    {bio ? (
-        <div
-          className={(
-            '  bg-white border border-gray-300 rounded-lg shadow-lg p-4',
-            { 'mt-2': !loading }
+    <div className="w-2/3 mt-4">
+    {selectedBook && (
+      <div className="flex  flex-col gap-1">
+        <div className="col-3 fixed" ref={colref}>
+          {isLoading ? (
+            <Spin className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          ) : (
+            <img
+              className="w-60 h-120 object-contain mb-4 shadow border border-black-600"
+              src={`${selectedBook.coverImage}`}
+              alt="Book cover image"
+              loading="lazy"
+            />
           )}
-        >
-          <p className="text-gray-800">{bio}</p>
+          {selectedBook.buyLink && (
+            <a
+              href={`${selectedBook.buyLink}`}
+              className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg inline-flex items-center hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              aria-label="Shelved as 'Currently reading'. Tap to edit shelf for this book"
+            >
+              Buy on Google Play
+            </a>
+          )}
         </div>
-      ): (<p>{selectedBook.author}</p>)}
-
-    </div>
-  </div> 
-  <div>
- 
-  {selectedBook.downloadLink != "" && (   <Link to={`/book/${id}/`} className="inline-block">
-      <button
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center mt-2 mb-2"
-      >
-        <span className="mr-2">Read Online</span>
-        <FontAwesomeIcon icon={faBookOpen} />
-      </button>
-    </Link>
-
-   )}
   
-</div>
-
-  <Reviewsection bookId={selectedBook._id}/>
-  <Reviewscommunity bookId={selectedBook._id}/>
-</div>
-
-
-</div>)}
-
-</div>
+        <div className="col-8 ml-auto">
+          <h1 className="text-3xl font-bold mb-2"></h1>
+  
+          <h1 className="text-3xl font-bold mb-4">{selectedBook.title}</h1>
+  
+          <p className="text-gray-700 mb-3">
+            <span className="font-medium">Author:</span> {selectedBook?.author}
+          </p>
+          <p className="text-gray-700 mb-3">
+            <span className="font-medium">Average rating:</span>{' '}
+            {selectedBook.averageRating}
+          </p>
+          <p className="text-gray-700 mb-3">
+            <span className="font-medium">Ratings:</span>
+            {selectedBook.ratingsCount}
+          </p>
+          <p className="text-gray-700 mb-3">
+            <span className="font-medium">Genres:</span> {selectedBook.genre}
+          </p>
+          <p className="text-gray-700 mb-3">
+            <span className="font-medium">First Published:</span> {date}
+          </p>
+  
+          {selectedBook.description && (
+            <>
+              <p className="text-gray-700 mb-3">
+                <span className="font-medium">Description: </span>
+                {selectedBook.description.replace(/(<([^>]+)>)/gi, '')}
+              </p>
+            </>
+          )}
+          <div className="mb-4">
+            <h3 className="text-lg font-medium mb-3">About the author</h3>
+            <div className="flex mb-1">
+              {bio ? (
+                <div className="bg-white border border-gray-300 rounded-lg shadow-lg p-4 mt-2">
+                  <p className="text-gray-800">{bio}</p>
+                </div>
+              ) : (
+                <p>{selectedBook.author}</p>
+              )}
+            </div>
+          </div>
+          <div>
+            {selectedBook.downloadLink !== '' && (
+              <Link to={`/book/${id}/`} className="inline-block">
+                <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center mt-2 mb-2">
+                  <span className="mr-2">Read Online</span>
+                  <FontAwesomeIcon icon={faBookOpen} />
+                </button>
+              </Link>
+            )}
+          </div>
+  
+          <Reviewsection bookId={selectedBook._id} />
+          <Reviewscommunity bookId={selectedBook._id} />
+        </div>
+      </div>
+    )}
+  </div>
+  
 
   )
 }

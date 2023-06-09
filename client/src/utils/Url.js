@@ -1,1 +1,1 @@
-export const URL = 'https://readchoiceapis2.onrender.com';
+export const URL = 'http://localhost:5000';

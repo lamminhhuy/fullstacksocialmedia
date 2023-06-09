@@ -8,7 +8,9 @@ useEffect(()=> {
 })
   return (
     <>
+      <div className='w-3/4'>
       <BookSection keyword={keyword} />
+      </div>
     </>
   )
 }

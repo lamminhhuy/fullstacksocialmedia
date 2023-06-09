@@ -127,7 +127,7 @@ export const searchBooks = createAsyncThunk("books/searchBooks", async ({keyword
     } else 
     {
        response = await axios.get(
-        `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=30&langRestrict=en+vi`
+        `https://www.googleapis.com/books/v1/volumes?q=${keyword}&maxResults=40&langRestrict=en+vi`
       );
     }
   console.log(response.data)

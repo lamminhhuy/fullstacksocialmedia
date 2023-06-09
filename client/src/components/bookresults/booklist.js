@@ -93,7 +93,7 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
     <Button className=" bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md flex items-center">Read online</Button>
   </Link>
 ) :  book.buyLink && (
-  <a href={`${book.buyLink}`} className="inline-block bg-brown text-white font-bold py-2 px-4 rounded-md">Buy Link</a>
+  <a href={`${book.buyLink}`} className="inline-block bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md">Buy Link</a>
 )} </Button.Group>
        <FavoriteButton added={false} auth={auth} book={book}/>
            </div>

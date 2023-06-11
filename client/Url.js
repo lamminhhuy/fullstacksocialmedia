@@ -1,1 +1,1 @@
-export const URL = process.env.REACT_APP_SERVER_URL;
+export const URL = 'https://readchoiceapis2.onrender.com';

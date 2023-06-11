@@ -1,1 +1,1 @@
-export const URL = 'fsafa';
+export const URL = process.env.REACT_APP_SERVER_URL;

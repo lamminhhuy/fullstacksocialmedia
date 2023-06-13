@@ -48,7 +48,6 @@ app.use('/api', require('./routes/reviewRouter'))
 app.use('/api', require('./routes/reportRouter'))
 app.use('/api', require('./routes/groupRouter'))
 
-app.use('/api', require('./routes/discussionRouter'))
 app.get('/books/:id/:pageNumber', async (req, res) => {
   try {
     const { id, pageNumber } = req.params;

@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
     likes: [{ type: mongoose.Types.ObjectId, ref: 'user' }],
     comments: [{ type: mongoose.Types.ObjectId, ref: 'comment' }],
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+    updatedAt: { type: Date, default: Date.now },
+    rating:{ type: Number, required: true, min: 1, max: 5 },
   }); 
   
 ReviewSchema.index({ author: 1, book: 1 }, { unique: false });

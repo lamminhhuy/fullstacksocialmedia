@@ -10,9 +10,11 @@ const reviewCtrl = {
     try {
       // Kiểm tra xem người dùng đã đánh giá sách này chưa
       const existingReview = await Review.findOne({ user: userId, book: bookId });
-  
+    if (existingReview)
+    {
+      return res.status(400).json({msg: "You have already reviewed this book!"});
+    }
       // Nếu người dùng đã đánh giá sách rồi, trả về thông báo lỗi
-
       // Tạo đánh giá mới
       const newReview = new Review({
         author: userId,
@@ -20,13 +22,10 @@ const reviewCtrl = {
         book: bookId,
       });
       await newReview.save();
-  
       // Populate the author and book fields in the new review
       const populatedReview = await Review.findById(newReview._id)
         .populate('author')
         .populate('book')
-
-  
       return res.status(201).json(populatedReview);
     } catch (err) {
       console.error(err.message);

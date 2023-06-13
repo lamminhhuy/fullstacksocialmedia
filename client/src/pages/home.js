@@ -22,7 +22,7 @@ let scroll = 0;
     },[])
     return (
         <div className="row mx-0 w-2/3 ">
-            <div className="col-md-8 sm:w-full">
+            <div className="w-full md:w-2/3">
                 <Status />
 
                 {

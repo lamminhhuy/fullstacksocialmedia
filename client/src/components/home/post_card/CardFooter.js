@@ -88,14 +88,6 @@ const CardFooter = ({post}) => {
                
                 </div>
 
-                {
-                    saved 
-                    ?  <i className="fas fa-bookmark text-info"
-                    onClick={handleUnSavePost} />
-
-                    :  <i className="far fa-bookmark"
-                    onClick={handleSavePost} />
-                }
                
             </div>
 

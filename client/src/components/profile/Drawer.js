@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ShareBookModal from '../bookresults/ShareBookModal';
 export const Drawers = ({ drawer }) => {
   const [numBooks, setNumBooks] = useState(3);
   const [showMore, setShowMore] = useState(true);
@@ -31,15 +32,18 @@ export const Drawers = ({ drawer }) => {
               />
             </svg>
             <Link to={`/book/show/${book.googleBooksId}`}>
-              <div className="flex items-center space-x-4">
-                <div className="flex-none w-16 h-24">
-                  <img className="w-full h-full object-cover" src={book.coverImage} />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-medium">{book.title}</h3>
-                  <p className="text-gray-600"></p>
-                </div>
-              </div>
+            <div className="flex items-center space-x-4">
+  <div className="flex-none w-16 h-24">
+    <img className="w-full h-full object-cover" src={book.coverImage} alt={book.title} />
+  </div>
+  <div className="flex-1">
+    <h3 className="text-xl font-medium">{book.title}</h3>
+    <p className="text-gray-600">by {book.author}</p>
+
+  </div>
+</div>
+
+           
             </Link>
           </div>
         ))}

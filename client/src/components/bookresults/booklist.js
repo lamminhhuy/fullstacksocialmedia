@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Rate,Spin,Button } from 'antd';
+import {Button, message } from 'antd';
 import { addBookToShelf } from '../../redux/actions/bookshelfAction';
 import { Link } from 'react-router-dom';
-import { HeartOutlined, HeartFilled } from '@ant-design/icons';
-
-import { submitRating } from '../../redux/reducers/ratingSlice';
 import { Pagination } from 'antd';
-import { postDataAPI } from '../../utils/fetchData';
-import BookFilter from '../Bookfilter';
 import Rating from './rating';
 import { FavoriteButton } from './favoriteButton';
 import ShareBookModal from './ShareBookModal';
+
 const  Booklist =({query, books, selectedBook, isLoading, error }) => {   
   const dispatch = useDispatch();
   const { drawers,loading} = useSelector (state => state.bookshelf)
@@ -35,6 +31,7 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
         console.log(auth.token)
       
         dispatch(addBookToShelf({name,user_id, book,auth}));
+        message.success(`Added successfully`);
       }
       const handlePaginationChange = (page) => {
         setCurrentPage(page);
@@ -71,13 +68,14 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
                  id="menu1"
                  data-toggle="dropdown"
                ></button>
-               <ul className="dropdown-menu" role="menu" aria-labelledby="menu1"> {drawers && drawers.filter((drawer) => drawer.name !== "Want to read").map((drawer) => (
+               <ul  className="dropdown-menu bg-white border border-gray-200 py-2 shadow-lg rounded-lg" role="menu" aria-labelledby="menu1"> {drawers && drawers.filter((drawer) => drawer.name !== "Want to read").map((drawer) => (
   <li role="presentation">
     <a
       role="menuitem"
       tabIndex="-1"
       href="#"
       onClick={() => addbook(drawer.name, user._id, book, auth)}
+      className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
     >
       {drawer.name} 
     </a>
@@ -90,6 +88,7 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
    
              {book.epub ? (
   <Link to={`/book/${book.bookId}`}>
+    
     <Button className=" bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md flex items-center">Read online</Button>
   </Link>
 ) :  book.buyLink && (

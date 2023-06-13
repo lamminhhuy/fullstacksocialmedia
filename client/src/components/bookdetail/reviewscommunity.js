@@ -82,7 +82,7 @@ dispatch(fetchReviews(bookId))
   return (
 <div>
   <div className="border-t pt-4">
-    <h3 className="text-lg font-bold mb-2">Các đánh giá đã được đăng</h3>
+    <h3 className="text-lg font-bold mb-2">Reviews have been posted</h3>
     {error ? (
       <p>{error}</p>
     ) : (
@@ -91,32 +91,33 @@ dispatch(fetchReviews(bookId))
           {reviews &&
             reviews.map((review) => (
               <li key={review.author ? review.author._id : null} className="mb-2">
-                <div className="flex flex-col md:flex-row items-center justify-between">
-                  <UserCard user={review ? review.author : null} border="" />
-                  <div className="flex mt-2 md:mt-0  md:flex-row justify-between ">
-                    <div className="text-gray-700 ">{review.content}</div>
-                    <div className="text-gray-600 text-sm flex items-center mt-1">
-                      <div className="flex-col">
-                        <div className="ml-0.5">{review.likes.length}</div>
-                        <HeartOutlined
-                          className={isLiked ? 'mr-3 text-danger' : 'mr-3'}
-                          onClick={() => likeReviewHandler(user._id, review._id)}
-                        />
-                      </div>
-                      {review.author._id !== user._id && (
-                        <Button
-                          type="primary"
-                          style={{ backgroundColor: 'red', color: 'white' }}
-                          onClick={showModal}
-                          className="ml-2"
-                        >
-                          Report
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex-col"></div>
-                </div>
+              <div className="flex md:flex-row items-center justify-between">
+  <UserCard user={review ? review.author : null} border="" />
+
+    <div className="text-gray-700 mr-auto">{review.content}</div>
+
+    <div className="text-gray-600 text-sm flex items-center mt-1">
+      <div className="flex-col">
+        <div className="ml-0.5">{review.likes.length}</div>
+        <HeartOutlined
+          className={isLiked ? 'mr-3 text-danger' : 'mr-3'}
+          onClick={() => likeReviewHandler(user._id, review._id)}
+        />
+   
+
+      {review.author._id !== user._id && (
+        <Button
+          type="primary"
+          className="ml-2 bg-red-500 text-white"
+          onClick={showModal}
+        >
+          Report
+        </Button>
+      )}
+    </div>
+  </div>
+</div>
+
                 <Modal
                   title="Báo cáo review"
                   visible={visible}

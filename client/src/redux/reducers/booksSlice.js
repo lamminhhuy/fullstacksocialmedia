@@ -82,7 +82,7 @@ export const recommendBooks = createAsyncThunk(
       return relatedBooks;
     } catch (error) {
      
-      throw new Error("Failed to recommend books.");
+      throw new Error("No results were founded.");
     }
   }
 );

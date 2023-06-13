@@ -33,7 +33,7 @@ const bookshelfReducer = (state = initialState, action) => {
    case 'DELETE_DRAWER':
     return updatedeleteDrawer(state, action.payload);
     case 'ADD_BOOK_TO_BOOKSHELF_SUCCESS':
-      message.success(`Added successfully`);
+     
       return {
         ...state,
         drawers: [...state.drawers,action.payload],

@@ -70,23 +70,25 @@ const toggleReadMore = () => {
               id="menu1"
               data-toggle="dropdown"
             ></button>
-            <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
-              {drawers &&
-                drawers
-                  .filter((drawer) => drawer.name !== "Want to Read")
-                  .map((drawer) => (
-                    <li role="presentation" key={drawer.name}>
-                      <a
-                        role="menuitem"
-                        tabIndex="-1"
-                        href="#"
-                        onClick={() => addbook(drawer.name, user._id, post.book, auth)}
-                      >
-                        {drawer.name}
-                      </a>
-                    </li>
-                  ))}
-            </ul>
+    <ul className="dropdown-menu bg-white border border-gray-200 py-2 shadow-sm rounded-lg" role="menu" aria-labelledby="menu1">
+  {drawers &&
+    drawers
+      .filter((drawer) => drawer.name !== "Want to Read")
+      .map((drawer) => (
+        <li role="presentation" key={drawer.name}>
+          <a
+            role="menuitem"
+            tabIndex="-1"
+            href="#"
+            onClick={() => addbook(drawer.name, user._id, post.book, auth)}
+            className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+          >
+            {drawer.name}
+          </a>
+        </li>
+      ))}
+</ul>
+
           </div>
           <p className="text-sm">{truncatedDescription}</p>
           {shouldRenderReadMore && (

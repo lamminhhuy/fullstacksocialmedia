@@ -96,7 +96,7 @@ const ReadHandler = async (book) => {
             </p>
             <p className="text-gray-700 mb-3">
               <span className="font-medium">Average rating:</span>{' '}
-              {selectedBook.averageRating}
+              {parseFloat(selectedBook.averageRating.toFixed(2))}
             </p>
             <p className="text-gray-700 mb-3">
               <span className="font-medium">Ratings:</span>
@@ -133,7 +133,7 @@ const ReadHandler = async (book) => {
               {selectedBook.downloadLink !== '' && (
                 <Link to={`/book/${id}/`} className="inline-block">
                   <button onClick = {(e)=> ReadHandler(selectedBook)}className="bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-full inline-flex items-center mt-2 mb-2">
-                    <span className="mr-2">Read Online </span>
+                    <span className="mr-2">Read Online</span>
                     <FontAwesomeIcon icon={faBookOpen} />
                   </button>
                 </Link>

@@ -41,7 +41,7 @@ const bookshelfReducer = (state = initialState, action) => {
         error:[],
       };
     case 'ADD_BOOK_TO_BOOKSHELF_FAILURE':
-      message.error(`You already added this book!`);
+    
       return { ...state, error: action.payload, loading: false };
           case UPDATE_DRAWER_REQUEST:
       return {

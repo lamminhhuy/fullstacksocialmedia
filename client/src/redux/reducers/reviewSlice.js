@@ -58,10 +58,10 @@ export const fetchReviews = (bookId) => async dispatch => {
   }
 };
 
-export const addReview = ({ userId, bookId, reviewText }) => async dispatch => {
+export const addReview = ({ userId, bookId, reviewText ,rating }) => async dispatch => {
   dispatch(startLoading());
   try {
-    const response = await postDataAPI(`books/review/${userId}/${bookId}`, { reviewText: reviewText });
+    const response = await postDataAPI(`books/review/${userId}/${bookId}`, { reviewText: reviewText,rating });
     dispatch(reviewAdded(response.data));
     
   } catch (error) {

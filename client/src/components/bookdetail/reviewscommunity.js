@@ -1,4 +1,4 @@
-import { Spin } from 'antd'
+import { Rate, Spin } from 'antd'
 import { Button, Modal, Form, Input } from 'antd';
 
 import React, { useEffect, useState } from 'react'
@@ -97,6 +97,7 @@ dispatch(fetchReviews(bookId))
     <div className="text-gray-700 mr-auto">{review.content}</div>
 
     <div className="text-gray-600 text-sm flex items-center mt-1">
+   <div> <Rate className="w-15 h-1 mr-3"  value={review.rating}disabled={true} /></div>
       <div className="flex-col">
         <div className="ml-0.5">{review.likes.length}</div>
         <HeartOutlined
@@ -119,7 +120,7 @@ dispatch(fetchReviews(bookId))
 </div>
 
                 <Modal
-                  title="Báo cáo review"
+                  title="Review report"
                   visible={visible}
                   onOk={() => handleOk(review._id)}
                   onCancel={handleCancel}

@@ -20,6 +20,7 @@ const reviewCtrl = {
         author: userId,
         content: reviewText,
         book: bookId,
+        rating: req.body?.rating ?? ""
       });
       await newReview.save();
       // Populate the author and book fields in the new review

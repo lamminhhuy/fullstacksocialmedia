@@ -109,18 +109,18 @@ const Booklist = ({ query, books, selectedBook, isLoading, error }) => {
                   </div>
                   {book.epub ? (
                     <Link to={`/book/${book.bookId}`}>
-                      <Button
-                        className=" bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md flex items-center"
+                      <button
+                        className=" bg-purple btn-read-online hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md flex items-center"
                         onClick={() => readBookHandler(book)}
                       >
                         Read online
-                      </Button>
+                      </button>
                     </Link>
                   ) : (
                     book.buyLink && (
                       <a
                         href={`${book.buyLink}`}
-                        className="inline-block bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md"
+                        className="inline-block btn-buy-link bg-purple hover:bg-faint-purple text-white font-bold py-2 px-4 rounded-md"
                       >
                         Buy Link
                       </a>

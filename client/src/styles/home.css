@@ -38,6 +38,7 @@
 }
 .posts .card_header .card_name {
   transform: translateY(3px);
+  transform: translateX(6px);
 }
 .posts .card_header .dropdown-menu {
   position: absolute;

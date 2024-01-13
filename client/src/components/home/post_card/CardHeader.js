@@ -53,11 +53,14 @@ const CardHeader = ({ post }) => {
         />
 
         <div className="card_name">
-          <h6 className="m-0">
-            <Link to={`/profile/${post.user._id}`} className="text-dark">
-              {post.user.username}
-            </Link>
-            <br />
+          <div>
+            <h6 className="m-0">
+              <Link to={`/profile/${post.user._id}`} className="text-dark">
+                {post.user.username}
+              </Link>
+            </h6>
+          </div>
+          <div>
             {post.status && post.status.includes("rate") ? (
               <>
                 <span>
@@ -70,12 +73,13 @@ const CardHeader = ({ post }) => {
                 />
               </>
             ) : (
-              <span className="ml-2">{post.status}</span>
+              <span>{post.status} </span>
             )}
-          </h6>
-          <small className="text-muted">
-            {moment(post.createdAt).fromNow()}
-          </small>
+
+            <small className="text-muted">
+              {moment(post.createdAt).fromNow()}
+            </small>
+          </div>
         </div>
       </div>
 

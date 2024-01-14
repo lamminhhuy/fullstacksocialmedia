@@ -137,6 +137,14 @@ img {
     background-color: white !important;
     opacity: 1 !important;
   }
+  .btn-read-online {
+    width: 3cap;
+    display: none;
+  }
+  .btn-buy-link {
+    width: 30px;
+    display: none;
+  }
   .btn-shift-page-book {
     display: none;
   }

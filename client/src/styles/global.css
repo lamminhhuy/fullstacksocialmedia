@@ -137,6 +137,15 @@ img {
     background-color: white !important;
     opacity: 1 !important;
   }
+  label,
+  button,
+  h3,
+  span {
+    font-size: 14px;
+  }
+  .rating-review-text {
+    font-size: 14px;
+  }
   .btn-read-online {
     width: 3cap;
     display: none;
